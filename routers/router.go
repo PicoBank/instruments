@@ -25,6 +25,11 @@ func init() {
 				&controllers.UserController{},
 			),
 		),
+		beego.NSNamespace("/instrument",
+			beego.NSInclude(
+				&controllers.InstrumentController{},
+			),
+		),
 	)
 	beego.AddNamespace(ns)
 }

@@ -7,6 +7,14 @@ import (
 
 func init() {
 
+	beego.GlobalControllerRouter["github.com/picobank/instruments/controllers:InstrumentController"] = append(beego.GlobalControllerRouter["github.com/picobank/instruments/controllers:InstrumentController"],
+		beego.ControllerComments{
+			Method: "GetAll",
+			Router: `/`,
+			AllowHTTPMethods: []string{"get"},
+			MethodParams: param.Make(),
+			Params: nil})
+
 	beego.GlobalControllerRouter["github.com/picobank/instruments/controllers:ObjectController"] = append(beego.GlobalControllerRouter["github.com/picobank/instruments/controllers:ObjectController"],
 		beego.ControllerComments{
 			Method: "Post",
