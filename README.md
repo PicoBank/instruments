@@ -1,3 +1,9 @@
+# Get the source
+
+    mkdir $GOPATH/src/github.com/picobank
+    cd $GOPATH/src/github.com/picobank
+    git clone git@github.com:picobank/instruments.git
+
 # Running
 
 Running in development mode:
