@@ -1,8 +1,6 @@
 package controllers
 
 import (
-	"log"
-
 	"github.com/picobank/instruments/models"
 
 	"github.com/astaxie/beego"
@@ -19,7 +17,6 @@ type InstrumentController struct {
 // @Failure 403 :objectId is empty
 // @router / [get]
 func (controller *InstrumentController) GetAll() {
-	log.Println("COUCOU")
 	controller.Data["json"] = models.GetAllInstruments()
 	controller.ServeJSON()
 }

@@ -12,6 +12,7 @@
 *.out
 .vscode
 
-# Beego specific:
+# Beego & app specific:
 instruments
 lastupdate.tmp
+instruments.tar.gz

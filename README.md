@@ -1,6 +1,20 @@
 # Running
 
+Running in development mode:
+
     DB_USER=pi DB_PASSWORD=raspberry DB_HOST=localhost DB_NAME=go_test bee run
+
+Connect to `http://localhost:8080/v1/instrument`
+
+# Build and deploy on Rasbpberry PI
+
+In the source directory:
+
+    CGO_ENABLED=0 GOOS=linux GOARCH=arm GOARM=5 bee pack -ba "-installsuffix cgo"
+
+Copy the instruments.tar.gz file to the target Raspberry, untar and run:
+
+    DB_USER=pi DB_PASSWORD=raspberry DB_HOST=localhost DB_NAME=go_test ./instruments
 
 Connect to `http://localhost:8080/v1/instrument`
 
