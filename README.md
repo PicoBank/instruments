@@ -10,10 +10,11 @@ Connect to `http://localhost:8080/v1/instrument`
 
 In the source directory:
 
-    CGO_ENABLED=0 GOOS=linux GOARCH=arm GOARM=5 bee pack -ba "-installsuffix cgo"
+    GOOS=linux GOARCH=arm GOARM=5 bee pack
 
 Copy the instruments.tar.gz file to the target Raspberry, untar and run:
 
+    sed -i 's/runmode\s*=\s*dev/runmode = prod/' conf/app.conf
     DB_USER=pi DB_PASSWORD=raspberry DB_HOST=localhost DB_NAME=go_test ./instruments
 
 Connect to `http://localhost:8080/v1/instrument`
