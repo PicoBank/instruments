@@ -23,6 +23,8 @@ func init() {
 	connectionString := fmt.Sprintf("user='%s' password='%s' host='%s' dbname='%s' sslmode=disable", parts...)
 	log.Println("Connection string: ", connectionString)
 	orm.RegisterDataBase("default", "postgres", connectionString)
+	orm.SetMaxIdleConns("default", 10)
+	orm.SetMaxOpenConns("default", 10)
 }
 
 func main() {
