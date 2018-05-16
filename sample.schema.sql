@@ -7,7 +7,7 @@ DROP USER IF EXISTS pi;
 
 CREATE USER pi PASSWORD 'raspberry';
 ALTER ROLE pi SUPERUSER;
-ALTER ROLE pi SET search_path TO instruments;
+--ALTER ROLE pi SET search_path TO instruments;
 CREATE DATABASE picobank OWNER pi;
 \connect picobank pi;
 CREATE SCHEMA instruments;
