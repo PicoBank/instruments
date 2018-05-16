@@ -8,7 +8,7 @@
 
 Running in development mode:
 
-    DB_USER=pi DB_PASSWORD=raspberry DB_HOST=localhost DB_NAME=go_test bee run
+    DB_USER=pi DB_PASSWORD=raspberry DB_HOST=localhost DB_NAME=picobank bee run
 
 Connect to `http://localhost:8080/v1/instrument`
 
@@ -28,21 +28,27 @@ Connect to `http://localhost:8080/v1/instrument`
 # Installation notes
 
 Initializing the database:
+    CREATE USER pi PASSWORD 'raspberry';
+    ALTER ROLE pi SUPERUSER;
+    CREATE DATABASE picobank OWNER pi;
+    // connect as user pi: psql -U pi picobank
+    CREATE SCHEMA instruments;
 
-    CREATE TABLE public.instruments (
+    CREATE TABLE instruments.instruments (
         code character varying,
         value numeric
     );
 
-    GRANT SELECT ON TABLE public.instruments TO pi;
+    GRANT SELECT ON TABLE instruments.instruments TO pi;
 
-    INSERT INTO public.instruments VALUES ('NYC', 1.34);
-    INSERT INTO public.instruments VALUES ('NZU', 3.14);
+    INSERT INTO instruments.instruments VALUES ('NYC', 1.34);
+    INSERT INTO instruments.instruments VALUES ('NZU', 3.14);
 
 # Setup notes
 
 Installing BeeGo:
 
+    go get github.com/lib/pq
     go get github.com/astaxie/beego
     go get github.com/beego/bee
 
