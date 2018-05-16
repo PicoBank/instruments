@@ -1,8 +1,25 @@
+# Prerequisites
+
+You need to make sure your environment is setup up correctly:
+ * [go](https://golang.org/) -- The Go Programming Language
+ * [dep](https://golang.github.io/dep/) -- Dependency management for Go
+
 # Get the source
 
-    mkdir $GOPATH/src/github.com/picobank
-    cd $GOPATH/src/github.com/picobank
-    git clone git@github.com:picobank/instruments.git
+Clone the Git repository:
+
+```bash
+git clone https://github.com/picobank/instruments.git $GOPATH/src/github.com/picobank
+cd $GOPATH/src/github.com/picobank
+```
+
+# Installing dependencies
+
+Run `dep ensure` to make sure vendor/ is in the correct state:
+
+```bash
+dep ensure
+```
 
 # Running
 
