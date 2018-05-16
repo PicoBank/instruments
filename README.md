@@ -29,7 +29,7 @@ Running in development mode:
 
 Connect to `http://localhost:8080/v1/instrument`
 
-# Build and deploy on Rasbpberry PI
+# Build and deploy on Raspberry PI
 
 In the source directory:
 
