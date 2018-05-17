@@ -13,14 +13,6 @@ import (
 	"github.com/astaxie/beego/orm"
 )
 
-func getenv(name, defaultValue string) string {
-	schema, exists := os.LookupEnv(name)
-	if exists {
-		return schema
-	}
-	return defaultValue
-}
-
 func init() {
 
 	orm.RegisterDriver("postgres", orm.DRPostgres)
@@ -29,9 +21,8 @@ func init() {
 		os.Getenv("DB_PASSWORD"),
 		os.Getenv("DB_HOST"),
 		os.Getenv("DB_NAME"),
-		getenv("DB_SCHEMA", "instruments"),
 	}
-	connectionString := fmt.Sprintf("user='%s' password='%s' host='%s' dbname='%s' sslmode=disable search_path=%s", parts...)
+	connectionString := fmt.Sprintf("user='%s' password='%s' host='%s' dbname='%s' sslmode=disable", parts...)
 	log.Println("Connection string: ", connectionString)
 	orm.RegisterDataBase("default", "postgres", connectionString)
 	orm.SetMaxIdleConns("default", 10)

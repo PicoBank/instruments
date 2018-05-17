@@ -1,0 +1,5 @@
+\set ON_ERROR_STOP on
+
+CREATE USER pi PASSWORD 'raspberry';
+ALTER ROLE pi SUPERUSER;
+CREATE DATABASE picobank OWNER pi;
