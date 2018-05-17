@@ -46,7 +46,9 @@ Connect to `http://localhost:8080/v1/instrument`
 
 Initializing the database:
 
-    psql postgres -f sample.schema.sql 
+    psql postgres -f migrations/drop.sql
+    psql postgres -f migrations/create.sql
+    psql postgres -f migrations/sample-data.sql
 
 # Setup notes
 
