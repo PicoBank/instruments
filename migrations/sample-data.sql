@@ -2,5 +2,7 @@
 
 \connect picobank pi;
 
-INSERT INTO instruments.instruments VALUES ('NYC', 1.34);
-INSERT INTO instruments.instruments VALUES ('NZU', 3.14);
+INSERT INTO instruments.instruments (symbol, from_date, created_by) VALUES 
+    ('NYC', NOW(), 'test'),
+    ('NZU', NOW(), 'test'),
+    ('KPO', NOW(), 'test');

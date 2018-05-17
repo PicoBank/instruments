@@ -1,12 +1,19 @@
 package models
 
 import (
+	"time"
+
 	"github.com/astaxie/beego/orm"
 )
 
 type Instrument struct {
-	Code  string `orm:"pk"`
-	Value float64
+	InstrumentId string `orm:"pk"`
+	Symbol       string
+	FromDate     time.Time
+	ThruDate     time.Time
+	CreatedAt    time.Time
+	UpdatedAt    time.Time
+	created_by   string
 }
 
 func init() {

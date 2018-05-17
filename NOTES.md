@@ -1,0 +1,1 @@
+Converting from Oracle to PostgreSQL: http://www.sqlines.com/oracle-to-postgresql
