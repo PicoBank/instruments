@@ -7,13 +7,15 @@ import (
 )
 
 type Instrument struct {
-	InstrumentId string `orm:"pk"`
-	Symbol       string
-	FromDate     time.Time
-	ThruDate     time.Time
-	CreatedAt    time.Time
-	UpdatedAt    time.Time
-	created_by   string
+	Id          uint32 `orm:"pk;column(instrument_id)"`
+	Symbol      string
+	Name        string
+	Description string
+	FromDate    time.Time
+	ThruDate    time.Time
+	CreatedAt   time.Time
+	UpdatedAt   time.Time
+	created_by  string
 }
 
 func init() {
@@ -24,11 +26,20 @@ func GetAllInstruments() (instruments []Instrument) {
 	o := orm.NewOrm()
 	o.Using("default")
 
-	qs := o.QueryTable("instruments").Limit(10)
+	qs := o.QueryTable("instrument")
 
 	qs.All(&instruments)
 	return
 }
-func (u *Instrument) TableName() string {
-	return "instruments"
+
+func GetOneInstrument(InstrumentId string) (instrument *Instrument, err error) {
+	instrument = &Instrument{Id: 1}
+	o := orm.NewOrm()
+	o.Using("default")
+
+	err = o.Read(instrument)
+	if err != nil {
+		return nil, err
+	}
+	return instrument, nil
 }
