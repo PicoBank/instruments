@@ -14,6 +14,9 @@ import (
 )
 
 func init() {
+	if beego.BConfig.RunMode == beego.DEV {
+		orm.Debug = true
+	}
 
 	orm.RegisterDriver("postgres", orm.DRPostgres)
 	parts := []interface{}{
