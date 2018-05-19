@@ -20,14 +20,14 @@ func init() {
 				&controllers.ObjectController{},
 			),
 		),
-		beego.NSNamespace("/user",
-			beego.NSInclude(
-				&controllers.UserController{},
-			),
-		),
 		beego.NSNamespace("/instruments",
 			beego.NSInclude(
 				&controllers.InstrumentController{},
+			),
+		),
+		beego.NSNamespace("/instrument-classes",
+			beego.NSInclude(
+				&controllers.InstrumentClassesController{},
 			),
 		),
 	)

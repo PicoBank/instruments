@@ -1,5 +1,7 @@
 package models
 
+// TODO: remove this model (kept only for testing purposes)
+
 import (
 	"errors"
 	"strconv"
