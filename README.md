@@ -6,7 +6,7 @@ You need to make sure your environment is setup up correctly:
  * [docker](https://www.docker.com/) -- Build, Ship, and Run Any App, Anywhere
 
 
-# Get the source
+# Get the sources
 
 Clone the Git repository:
 
@@ -15,8 +15,7 @@ git clone https://github.com/picobank/instruments.git $GOPATH/src/github.com/pic
 cd $GOPATH/src/github.com/picobank
 ```
 
-
-# Installing dependencies
+# Installing development dependencies
 
 Run `dep ensure` to make sure vendor/ is in the correct state:
 
@@ -24,19 +23,24 @@ Run `dep ensure` to make sure vendor/ is in the correct state:
 dep ensure
 ```
 
+Ensure `goose` (database migration tool) is installed:
+
+```bash
+go get -u github.com/pressly/goose/cmd/goose
+```
 
 # Running
 
-Start the postgres instance from a dedicated terminal:
+Start the PostgreSQL instance from a dedicated terminal:
 
 ```bash
 docker-compose up
 ```
 
-Run database migrations tool to initialize and populate the `instruments` schema:
+Run `goose` to initialize the `instruments` schema:
 
 ```bash
-bee migrate -driver="postgres" -conn="postgres://instruments:raspberry@localhost:5432/picobank?sslmode=disable"
+goose -dir database/migrations postgres "postgres://instruments:raspberry@localhost:5432/picobank?sslmode=disable" up
 ```
 
 Run the application in development mode:
@@ -45,7 +49,7 @@ Run the application in development mode:
 DB_USER=instruments DB_PASSWORD=raspberry DB_HOST=localhost DB_NAME=picobank bee run
 ```
 
-Connect to `http://localhost:8080/v1/instrument`
+Connect to `http://localhost:8080/v1/instruments`
 
 
 # Prepare the Raspberry PI
@@ -53,7 +57,7 @@ Connect to `http://localhost:8080/v1/instrument`
 Copy SQL scripts to the Raspberry PI:
 
 ```bash
-scp database/*.sql pi@raspberrypi.local:~
+scp database/initdb/*.sql pi@raspberrypi.local:~
 ```
 
 Connect to the Raspberry PI:
@@ -75,7 +79,7 @@ sudo -u postgres psql -f database.sql
 sudo -u postgres psql -f schema.sql
 ```
 
-Enable remote access to the Postgres instance:
+Enable remote access to the PostgreSQL instance:
 
 ```bash
 sudo sed -i "s/#listen_addresses = 'localhost'/listen_addresses = '*'/" /etc/postgresql/9.6/main/postgresql.conf
@@ -86,13 +90,12 @@ EOF
 sudo service postgresql restart
 ```
 
+# Build for and deploy on Raspberry PI
 
-# Build and deploy on Raspberry PI
-
-Run database migrations tool to initialize and populate the `instruments` schema:
+Run `goose` to initialize the `instruments` schema:
 
 ```bash
-bee migrate -driver="postgres" -conn="postgres://instruments:raspberry@raspberrypi.local:5432/picobank?sslmode=disable"
+goose -dir database/migrations postgres "postgres://instruments:raspberry@raspberrypi.local:5432/picobank?sslmode=disable" up
 ```
 
 Package the application:
@@ -112,12 +115,10 @@ sudo tar xzvf instruments.tar.gz
 Run the application in production mode:
 
 ```bash
-sudo sed -i 's/runmode\s*=\s*dev/runmode = prod/' conf/app.conf
-sudo DB_USER=instruments DB_PASSWORD=raspberry DB_HOST=localhost DB_NAME=picobank ./instruments
+sudo BEEGO_RUNMODE=prod DB_USER=instruments DB_PASSWORD=raspberry DB_HOST=localhost DB_NAME=picobank ./instruments
 ```
 
-Connect to `http://localhost:8080/v1/instrument`
-
+Connect to `http://raspberrypi.local:8080/v1/instruments`
 
 # Setup notes
 
@@ -131,4 +132,3 @@ Code generation:
 
     cd $GOPATH/src/github.com/picobank
     bee api instruments -driver=postgresql
-

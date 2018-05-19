@@ -7,7 +7,6 @@ GRANT CONNECT ON DATABASE picobank TO instruments;
 \connect picobank pi
 
 CREATE SCHEMA instruments AUTHORIZATION instruments;
-SET search_path = instruments;
 
--- The following is necessary to ensure bee migrate operates in the proper schema
+-- The following is better to ensure all tools run in the proper schema
 ALTER ROLE instruments IN DATABASE picobank SET search_path = instruments;

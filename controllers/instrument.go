@@ -1,6 +1,8 @@
 package controllers
 
 import (
+	"strconv"
+
 	"github.com/picobank/instruments/models"
 
 	"github.com/astaxie/beego"
@@ -25,7 +27,11 @@ func (controller *InstrumentController) GetAll() {
 func (o *InstrumentController) Get() {
 	instrumentId := o.Ctx.Input.Param(":instrumentId")
 	if instrumentId != "" {
-		ob, err := models.GetOneInstrument(instrumentId)
+		id, err := strconv.ParseInt(instrumentId, 10, 32)
+		if err != nil {
+			o.Data["json"] = err.Error()
+		}
+		ob, err := models.GetOneInstrument(uint32(id))
 		if err != nil {
 			o.Data["json"] = err.Error()
 		} else {

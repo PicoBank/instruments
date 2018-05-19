@@ -24,7 +24,6 @@
 #   go-tests = true
 #   unused-packages = true
 
-
 [[constraint]]
   name = "github.com/astaxie/beego"
   version = "1.9.2"
@@ -40,7 +39,3 @@
 [prune]
   go-tests = true
   unused-packages = true
-
-[[constraint]]
-  name = "github.com/pressly/goose"
-  version = "2.3.0"

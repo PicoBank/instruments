@@ -32,8 +32,8 @@ func GetAllInstruments() (instruments []Instrument) {
 	return
 }
 
-func GetOneInstrument(InstrumentId string) (instrument *Instrument, err error) {
-	instrument = &Instrument{Id: 1}
+func GetOneInstrument(Id uint32) (instrument *Instrument, err error) {
+	instrument = &Instrument{Id: Id}
 	o := orm.NewOrm()
 	o.Using("default")
 
