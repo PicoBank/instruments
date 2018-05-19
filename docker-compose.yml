@@ -4,6 +4,6 @@ services:
   db:
     image: postgres:9.6.7
     volumes:
-       - ./database:/docker-entrypoint-initdb.d
+       - ./database/initdb/:/docker-entrypoint-initdb.d
     ports:
       - "5432:5432"
