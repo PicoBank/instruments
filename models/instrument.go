@@ -9,7 +9,7 @@ import (
 // Instrument represents an instrument
 type Instrument struct {
 	ID          uint32 `orm:"pk;column(instrument_id)"`
-	Symbol      string
+	Symbol      string `faker:"word"`
 	Name        string
 	Description string           `json:",omitempty"`
 	Class       *InstrumentClass `orm:"rel(fk);column(instrument_class_id)"`

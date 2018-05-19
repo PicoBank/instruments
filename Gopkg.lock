@@ -10,7 +10,6 @@
     "context/param",
     "grace",
     "logs",
-    "migration",
     "orm",
     "session",
     "toolbox",
@@ -18,6 +17,15 @@
   ]
   revision = "bf5c5626ab429e66d88602e1ab1ab5fbf4629a01"
   version = "v1.9.2"
+
+[[projects]]
+  name = "github.com/bxcodec/faker"
+  packages = [
+    ".",
+    "support/slice"
+  ]
+  revision = "1e3dfd53d826aa0d096d235cf8525149287a2834"
+  version = "v1.4.3"
 
 [[projects]]
   branch = "master"
@@ -63,6 +71,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "975e84f8b7943d2fe98c6742e6ae73ebddc3bd526a811dccf908aa7acf5fc028"
+  inputs-digest = "03cb2a17818db6c47d621fb302b5b8260d94df1b7bfe47ff2bf8c2b924a5bd20"
   solver-name = "gps-cdcl"
   solver-version = 1

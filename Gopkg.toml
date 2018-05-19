@@ -36,6 +36,10 @@
   name = "github.com/smartystreets/goconvey"
   version = "1.6.3"
 
+[[constraint]]
+  name = "github.com/bxcodec/faker"
+  version = "1.4.3"
+  
 [prune]
   go-tests = true
   unused-packages = true
