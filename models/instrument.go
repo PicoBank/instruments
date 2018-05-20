@@ -8,22 +8,23 @@ import (
 
 // Instrument represents an instrument
 type Instrument struct {
-	ID          uint32 `orm:"pk;column(instrument_id)"`
-	Symbol      string `faker:"word"`
-	Name        string
-	Description string           `json:",omitempty"`
-	Class       *InstrumentClass `orm:"rel(fk);column(instrument_class_id)"`
-	Currency    *Instrument      `orm:"null;rel(fk);column(currency_id)" json:",omitempty"`
-	FromDate    time.Time
-	ThruDate    time.Time
-	CreatedAt   time.Time
-	UpdatedAt   time.Time
-	CreatedBy   string
-	UpdatedBy   string
+	ID           uint32 `orm:"pk;column(instrument_id)"`
+	Symbol       string `faker:"word"`
+	Name         string
+	Description  string           `json:",omitempty"`
+	Class        *InstrumentClass `orm:"rel(fk);column(instrument_class_id)"`
+	Currency     *Instrument      `orm:"null;rel(fk);column(currency_id)" json:",omitempty"`
+	Institutions []*Institution   `orm:"rel(m2m);rel_table(institution_role)"`
+	FromDate     time.Time
+	ThruDate     time.Time
+	CreatedAt    time.Time
+	UpdatedAt    time.Time
+	CreatedBy    string
+	UpdatedBy    string
 }
 
 func init() {
-	orm.RegisterModel(new(InstrumentClass))
+	orm.RegisterModel(new(Instrument))
 }
 
 // GetAllInstruments returns the list of all instruments
@@ -35,6 +36,9 @@ func GetAllInstruments() (instruments []Instrument) {
 	qs := o.QueryTable("instrument").RelatedSel()
 
 	qs.All(&instruments)
+	for idx := range instruments {
+		o.LoadRelated(&instruments[idx], "Institutions")
+	}
 	return
 }
 

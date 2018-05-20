@@ -21,7 +21,7 @@ INSERT INTO instrument_class (instrument_class_id, name) VALUES
 
 
 CREATE TABLE instrument (
-    instrument_id  SERIAL,
+    instrument_id               SERIAL,
     symbol         				VARCHAR(25) NOT NULL,
     name           				VARCHAR(80) NOT NULL,
     description    				VARCHAR(255),

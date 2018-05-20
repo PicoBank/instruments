@@ -11,7 +11,7 @@ type InstrumentClass struct {
 }
 
 func init() {
-	orm.RegisterModel(new(Instrument))
+	orm.RegisterModel(new(InstrumentClass))
 }
 
 // GetAllInstrumentClasses lists all instrument classes
