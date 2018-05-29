@@ -1,5 +1,8 @@
+\set ON_ERROR_STOP on
 
-// Currency
+DELETE FROM instrument;
+
+-- Currency
 INSERT INTO instrument (instrument_id, symbol, name, description, instrument_class_id, currency_id, from_date, thru_date, created_by, updated_by) VALUES 
     (70001, 'USD', 'US Dollars'         , 'US Dollars'          , 1, null, '2010-01-01', '2099-12-31', 'init', 'init' ),
     (70002, 'EUR', 'Euro'               , 'Euro'                , 1, null, '2010-01-01', '2099-12-31', 'init', 'init' ),
@@ -9,7 +12,7 @@ INSERT INTO instrument (instrument_id, symbol, name, description, instrument_cla
     (70006, 'GBP', 'UK Pound'           , 'UK Pound'            , 1, null, '2010-01-01', '2099-12-31', 'init', 'init' )
 ;
 
-// Bond
+-- Bond
 INSERT INTO instrument (symbol, name, description, instrument_class_id, currency_id, from_date, thru_date, created_by, updated_by) VALUES 
     ('0049804980', '6.657%LLOYDS BK PERP 144A'  , '6.657%LLOYDS BK PERP 144A'   , 2, 70001, '2018-01-23', '2099-12-31', 'init', 'init'),
     ('0387368000', '4 5/8 JP MORGAN PERP CC'    , '4 5/8 JP MORGAN PERP CC'     , 2, 70006, '2018-01-23', '2099-12-31', 'init', 'init'),
@@ -17,7 +20,7 @@ INSERT INTO instrument (symbol, name, description, instrument_class_id, currency
     ('0278496700', 'LA MONDIALE  5.11 %  VAR '  , 'LA MONDIALE  5.11 %  VAR '   , 2, 70002, '2018-01-23', '2099-12-31', 'init', 'init')
 ;
 
-// Equity
+-- Equity
 INSERT INTO instrument (symbol, name, description, instrument_class_id, currency_id, from_date, thru_date, created_by, updated_by) VALUES 
     ('FR0010285965', 'ALMIL', '1000MERCIS'          , 3, 70002, '2018-01-23', '2099-12-31', 'init', 'init'),
     ('BE0974275076', 'VALOR', '2VALORISE'           , 3, 70002, '2018-01-23', '2099-12-31', 'init', 'init'),
