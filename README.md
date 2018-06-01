@@ -11,42 +11,39 @@ You need to make sure your environment is setup up correctly:
 Clone the Git repository:
 
 ```bash
-git clone https://github.com/picobank/instruments.git $GOPATH/src/github.com/picobank
-cd $GOPATH/src/github.com/picobank
+git clone https://github.com/picobank/instruments.git
+cd instruments
 ```
 
-# Installing development dependencies
+# Running the development environment
+
+Run `docker-compose` in detached mode:
+
+```bash
+docker-compose up -d
+```
+
+The `app` container is bundled with:
+ * dep -- dependency manager
+ * beego -- application framework
+ * goose -- database migration tool
 
 Run `dep ensure` to make sure vendor/ is in the correct state:
 
 ```bash
-dep ensure
-```
-
-Ensure `goose` (database migration tool) is installed:
-
-```bash
-go get -u github.com/pressly/goose/cmd/goose
-```
-
-# Running
-
-Start the PostgreSQL instance from a dedicated terminal:
-
-```bash
-docker-compose up
+docker-compose exec app dep ensure
 ```
 
 Run `goose` to initialize the `instruments` schema:
 
 ```bash
-goose -dir database/migrations postgres "postgres://instruments:raspberry@localhost:5432/picobank?sslmode=disable" up
+docker-compose exec app goose -dir database/migrations postgres "postgres://instruments:raspberry@db:5432/picobank?sslmode=disable" up
 ```
 
 Run the application in development mode:
 
 ```bash
-DB_USER=instruments DB_PASSWORD=raspberry DB_HOST=localhost DB_NAME=picobank bee run
+docker-compose exec -e DB_USER=instruments -e DB_PASSWORD=raspberry -e DB_HOST=db -e DB_NAME=picobank app bee run
 ```
 
 Connect to `http://localhost:8080/v1/instruments`
@@ -95,13 +92,13 @@ sudo service postgresql restart
 Run `goose` to initialize the `instruments` schema:
 
 ```bash
-goose -dir database/migrations postgres "postgres://instruments:raspberry@raspberrypi.local:5432/picobank?sslmode=disable" up
+docker-compose exec app goose -dir database/migrations postgres "postgres://instruments:raspberry@raspberrypi.local:5432/picobank?sslmode=disable" up
 ```
 
 Package the application:
 
 ```bash
-GOOS=linux GOARCH=arm GOARM=5 bee pack
+docker-compose exec -e GOOS=linux -e GOARCH=arm -e GOARM=5 app bee pack
 ```
 
 Copy the instruments.tar.gz file to the Raspberry and untar:
