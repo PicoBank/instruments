@@ -17,7 +17,7 @@ cd instruments
 
 # Running the development environment
 
-Run `docker-compose` in detached mode:
+Start the development environment:
 
 ```bash
 docker-compose up -d
@@ -43,11 +43,16 @@ docker-compose exec app goose -dir database/migrations postgres "postgres://inst
 Run the application in development mode:
 
 ```bash
-docker-compose exec -e DB_USER=instruments -e DB_PASSWORD=raspberry -e DB_HOST=db -e DB_NAME=picobank app bee run
+docker-compose exec app bee run
 ```
 
 Connect to `http://localhost:8080/v1/instruments`
 
+Stop the development environment:
+
+```bash
+docker-compose down
+```
 
 # Prepare the Raspberry PI
 
