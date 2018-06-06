@@ -1,6 +1,6 @@
 -- +goose Up
 CREATE TABLE instrument_class (
-	instrument_class_id DECIMAL(2) NOT NULL,
+	instrument_class_id SMALLINT NOT NULL,
 	name                VARCHAR(16),
 	--
 	CONSTRAINT pk_instrument_class PRIMARY KEY (instrument_class_id)
@@ -25,7 +25,7 @@ CREATE TABLE instrument (
     symbol         				VARCHAR(25) NOT NULL,
     name           				VARCHAR(80) NOT NULL,
     description    				VARCHAR(255),
-    instrument_class_id         DECIMAL(2) NOT NULL,
+    instrument_class_id         SMALLINT NOT NULL,
     currency_id                 INTEGER,
     from_date                   TIMESTAMP(3) NOT NULL,
     thru_date                   TIMESTAMP(3),
