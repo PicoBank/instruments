@@ -3,6 +3,8 @@
 ALTER TABLE instrument
 add column datum jsonb;
 
+create index instrumentgin on instrument using gin (datum);
+
 ALTER TABLE instrument
 add column audit jsonb;
 
