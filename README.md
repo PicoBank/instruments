@@ -134,3 +134,8 @@ Code generation:
 
     cd $GOPATH/src/github.com/picobank
     bee api instruments -driver=postgresql
+
+
+# Load testing (WIP)
+
+    $GATLING_HOME/bin/gatling.sh  -sf loadtests/simulations/ -bdf loadtests/bodies/ -df loadtests/data -m
