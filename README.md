@@ -4,6 +4,7 @@ You need to make sure your environment is setup up correctly:
  * [go](https://golang.org/) -- The Go Programming Language
  * [dep](https://golang.github.io/dep/) -- Dependency management for Go
  * [docker](https://www.docker.com/) -- Build, Ship, and Run Any App, Anywhere
+ * [go protocol buffers]() -- 
 
 
 # Get the sources
@@ -27,6 +28,12 @@ The `app` container is bundled with:
  * dep -- dependency manager
  * beego -- application framework
  * goose -- database migration tool
+
+If you change Protocol Buffers make sure `protoc-gen-go` is installed:
+
+```bash
+go get -u github.com/golang/protobuf/protoc-gen-go
+```
 
 Run `dep ensure` to make sure vendor/ is in the correct state:
 

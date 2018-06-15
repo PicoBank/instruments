@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+message InstrumentClass {
+  uint32 id = 1;
+  string name = 2;
+}
+
+message Instrument {
+  uint32 id = 1;
+  string symbol = 2;
+  string name = 3;
+  string description = 4;
+  InstrumentClass class = 5;
+  Instrument currency = 6;
+  repeated Institution institutions = 7;
+
+  // TODO: dates should not be encoded as strings
+  string from_date = 8;
+  string thru_date = 9;
+  string created_at = 10;
+  string updated_at = 11;
+  string created_by = 12;
+  string updated_by = 13;
+}
+
+message Institution {
+  uint32 id = 1;
+  string name = 2;
+  string description = 3;
+  string acronym = 4;
+  repeated Instrument instruments = 6;
+  
+  // TODO: dates should not be encoded as strings
+  string from_date = 7;
+  string thru_date = 8;
+  string created_at = 9;
+  string updated_at = 10;
+  string created_by = 11;
+  string updated_by = 12;
+}
