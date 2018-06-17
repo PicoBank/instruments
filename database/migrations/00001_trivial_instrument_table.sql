@@ -1,12 +1,12 @@
 -- +goose Up
 CREATE TABLE instrument_class (
-	instrument_class_id SMALLINT NOT NULL,
-	name                VARCHAR(16),
+	id      SMALLINT NOT NULL,
+	name    VARCHAR(16),
 	--
-	CONSTRAINT pk_instrument_class PRIMARY KEY (instrument_class_id)
+	CONSTRAINT pk_instrument_class PRIMARY KEY (id)
 );
 
-INSERT INTO instrument_class (instrument_class_id, name) VALUES 
+INSERT INTO instrument_class (id, name) VALUES 
     (1,   'Currency'),
     (2,   'Bond'),
     (3,   'Equity'),
@@ -21,7 +21,7 @@ INSERT INTO instrument_class (instrument_class_id, name) VALUES
 
 
 CREATE TABLE instrument (
-    instrument_id               SERIAL,
+    id                          SERIAL,
     symbol         				VARCHAR(25) NOT NULL,
     name           				VARCHAR(80) NOT NULL,
     description    				VARCHAR(255),
@@ -34,9 +34,9 @@ CREATE TABLE instrument (
     created_by                  VARCHAR(25) NOT NULL,
     updated_by                  VARCHAR(25) NOT NULL,
 
-    CONSTRAINT pk_instrument PRIMARY KEY (instrument_id),
-    CONSTRAINT fk_instrument_class FOREIGN KEY (instrument_class_id) REFERENCES instrument_class (instrument_class_id),
-    CONSTRAINT fk_instrument_currency FOREIGN KEY (currency_id) REFERENCES instrument (instrument_id)
+    CONSTRAINT pk_instrument PRIMARY KEY (id),
+    CONSTRAINT fk_instrument_class FOREIGN KEY (instrument_class_id) REFERENCES instrument_class (id),
+    CONSTRAINT fk_instrument_currency FOREIGN KEY (currency_id) REFERENCES instrument (id)
 );
 
 -- +goose Down

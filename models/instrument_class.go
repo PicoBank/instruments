@@ -6,7 +6,7 @@ import (
 
 // InstrumentClass represents an instrument class
 type InstrumentClass struct {
-	ID   uint32 `orm:"pk;column(instrument_class_id)"`
+	ID   uint32 `orm:"pk"`
 	Name string
 }
 

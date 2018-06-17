@@ -1,7 +1,7 @@
 -- +goose Up
 
 CREATE TABLE institution (
-    institution_id  	SERIAL,
+    id  	            SERIAL,
 	name				VARCHAR(80) NOT NULL,
 	description			VARCHAR(255),
 	acronym				VARCHAR(25),
@@ -14,7 +14,7 @@ CREATE TABLE institution (
 	updated_at			TIMESTAMP(3) NOT NULL DEFAULT NOW(),
 	updated_by			VARCHAR(25) NOT NULL,
 	--
-    CONSTRAINT pk_institution PRIMARY KEY (institution_id)
+    CONSTRAINT pk_institution PRIMARY KEY (id)
 );
 
 CREATE TABLE institution_role (
@@ -31,8 +31,8 @@ CREATE TABLE institution_role (
 			updated_by			VARCHAR(25) NOT NULL,
 			--
 			CONSTRAINT pk_institution_role PRIMARY KEY (institution_id, instrument_id),
-			CONSTRAINT fk_institution_role_institution FOREIGN KEY (institution_id) REFERENCES institution (institution_id),
-			CONSTRAINT fk_institution_role_instrument FOREIGN KEY (instrument_id) REFERENCES instrument (instrument_id)
+			CONSTRAINT fk_institution_role_institution FOREIGN KEY (institution_id) REFERENCES institution (id),
+			CONSTRAINT fk_institution_role_instrument FOREIGN KEY (instrument_id) REFERENCES instrument (id)
 );
 
 -- +goose Down

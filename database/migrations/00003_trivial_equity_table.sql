@@ -16,10 +16,10 @@ CREATE TABLE equity
 	updated_by			VARCHAR(25) NOT NULL,
 	--
     CONSTRAINT pk_equity PRIMARY KEY (instrument_id),
-    CONSTRAINT fk_equity_instrument FOREIGN KEY (instrument_id) REFERENCES instrument (instrument_id),
-    CONSTRAINT fk_equity_pay_currency FOREIGN KEY (pay_currency_id) REFERENCES instrument (instrument_id),
-    CONSTRAINT fk_equity_exercise_currency FOREIGN KEY (exercise_currency_id) REFERENCES instrument (instrument_id),
-    CONSTRAINT fk_equity_company_currency FOREIGN KEY (company_currency_id) REFERENCES instrument (instrument_id)
+    CONSTRAINT fk_equity_instrument FOREIGN KEY (instrument_id) REFERENCES instrument (id),
+    CONSTRAINT fk_equity_pay_currency FOREIGN KEY (pay_currency_id) REFERENCES instrument (id),
+    CONSTRAINT fk_equity_exercise_currency FOREIGN KEY (exercise_currency_id) REFERENCES instrument (id),
+    CONSTRAINT fk_equity_company_currency FOREIGN KEY (company_currency_id) REFERENCES instrument (id)
 );
 
 -- +goose Down

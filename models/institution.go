@@ -8,7 +8,7 @@ import (
 
 // Institution represents an institution
 type Institution struct {
-	ID          uint32 `orm:"pk;column(institution_id)"`
+	ID          uint32 `orm:"pk;column(id)"`
 	Name        string
 	Description string        `json:",omitempty"`
 	Acronym     string        `json:",omitempty"`
