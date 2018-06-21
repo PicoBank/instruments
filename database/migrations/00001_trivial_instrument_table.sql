@@ -39,6 +39,9 @@ CREATE TABLE instrument (
     CONSTRAINT fk_instrument_currency FOREIGN KEY (currency_id) REFERENCES instrument (id)
 );
 
+-- on laisse 10000 ids pour les instruments 'de référence': currencies
+ALTER SEQUENCE instrument_id_seq RESTART WITH 10000;
+
 -- +goose Down
 DROP TABLE instrument;
 DROP TABLE instrument_class;
