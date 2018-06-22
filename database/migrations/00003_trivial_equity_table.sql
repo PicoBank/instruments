@@ -22,6 +22,10 @@ CREATE TABLE equity
     CONSTRAINT fk_equity_company_currency FOREIGN KEY (company_currency_id) REFERENCES instrument (id)
 );
 
+CREATE INDEX idx_equity_instrument_id on equity(instrument_id);
+CREATE INDEX idx_equity_pay_currenty_id on equity(pay_currency_id);
+CREATE INDEX idx_equity_exercise_currency_id on equity(exercise_currency_id);
+CREATE INDEX idx_equity_company_currency_id on equity(company_currency_id);
 -- +goose Down
 
 DROP TABLE equity;

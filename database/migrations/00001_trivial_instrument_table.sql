@@ -39,6 +39,9 @@ CREATE TABLE instrument (
     CONSTRAINT fk_instrument_currency FOREIGN KEY (currency_id) REFERENCES instrument (id)
 );
 
+CREATE INDEX idx_instrument_instrument_class_id on instrument(instrument_class_id);
+CREATE INDEX idx_instrument_instrument_currency on instrument(currency_id);
+
 -- on laisse 10000 ids pour les instruments 'de référence': currencies
 ALTER SEQUENCE instrument_id_seq RESTART WITH 10000;
 

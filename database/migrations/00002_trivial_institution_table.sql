@@ -35,6 +35,8 @@ CREATE TABLE institution_role (
 			CONSTRAINT fk_institution_role_instrument FOREIGN KEY (instrument_id) REFERENCES instrument (id)
 );
 
+CREATE INDEX idx_institution_role_instrument_id on institution_role(instrument_id);
+
 -- +goose Down
 
 DROP TABLE institution_role;
