@@ -24,7 +24,7 @@ BEGIN
         '2001-01-01', '2999-01-01', 
         current_timestamp, 'ETL', 
         current_timestamp, 'ETL' 
-    FROM etl_bats_instrument JOIN instrument ON (
+    FROM etl.etl_bats_instrument JOIN instrument ON (
         upper(etl_bats_instrument.currency) = instrument.symbol 
         AND instrument.instrument_class_id = 1)
     ;

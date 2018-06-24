@@ -1,7 +1,7 @@
 LOAD CSV 
     FROM '~/Dropbox/PicoBank/DataSets/Banque\ de\ France/data.csv' (name, symbol)
     INTO postgresql://instruments@localhost:5432/picobank
-    TARGET TABLE etl_currency 
+    TARGET TABLE etl.etl_currency 
 
     WITH truncate, 
         skip header = 1,
@@ -15,10 +15,10 @@ LOAD CSV
 
 BEFORE LOAD 
 DO $$
-    DROP TABLE IF EXISTS etl_currency; 
+    DROP TABLE IF EXISTS etl.etl_currency; 
 $$,
 $$
-    CREATE TABLE etl_currency (
+    CREATE TABLE etl.etl_currency (
         name                                    VARCHAR(128),
         symbol                                       VARCHAR(12)
     )
@@ -68,7 +68,7 @@ INSERT INTO instrument (
         '2001-01-01', '2999-01-01', 
         current_timestamp, 'ETL', 
         current_timestamp, 'ETL' 
-    FROM etl_currency
+    FROM etl.etl_currency
 $$,
 $$
     ALTER SEQUENCE instrument_id_seq RESTART WITH 10000;

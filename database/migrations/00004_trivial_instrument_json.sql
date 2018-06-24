@@ -13,9 +13,8 @@ CREATE TABLE instrument_json (
     created_by                  VARCHAR(25) NOT NULL,
     updated_by                  VARCHAR(25) NOT NULL,
 
-    CONSTRAINT pk_instrument PRIMARY KEY (id),
-    CONSTRAINT fk_instrument_class FOREIGN KEY (instrument_class_id) REFERENCES instrument_class (id),
-    CONSTRAINT fk_instrument_currency FOREIGN KEY (currency_id) REFERENCES instrument (id)
+    CONSTRAINT pk_instrument_json PRIMARY KEY (id),
+    CONSTRAINT fk_instrument_currency_json FOREIGN KEY (currency_id) REFERENCES instrument (id)
 );
 
 create index instrumentgin on instrument_json using gin (datum);
