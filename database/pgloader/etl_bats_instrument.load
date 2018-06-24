@@ -19,7 +19,9 @@ LOAD CSV
           standard_conforming_strings to 'on'
 
 
-AFTER LOAD DO
-    $$ SELECT count(*) from etl_bats_instrument $$
+AFTER LOAD 
+DO 
+    $$ DELETE FROM instrument WHERE id >= 10000 $$
+EXECUTE etl_bats_instrument.sql    
 ;
 
