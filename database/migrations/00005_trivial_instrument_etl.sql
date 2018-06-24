@@ -1,6 +1,6 @@
 -- +goose Up
 
-CREATE TABLE etl_bats_instrument (
+CREATE TABLE etl.etl_bats_instrument (
     company_name                                    VARCHAR(128),
     bats_name                                       VARCHAR(12),
     isin					                        VARCHAR(12),

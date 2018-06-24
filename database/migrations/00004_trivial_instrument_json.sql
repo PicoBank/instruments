@@ -1,22 +1,27 @@
 -- +goose Up
+CREATE TABLE instrument_json (
+    id                          SERIAL,
+    name           			    VARCHAR(80) NOT NULL,
+    description    				VARCHAR(255),
+    datum                       JSONB,
+    audit                       JSONB,
+    currency_id                 INTEGER,
+    from_date                   TIMESTAMP(3) NOT NULL,
+    thru_date                   TIMESTAMP(3),
+    created_at                  TIMESTAMP(3) NOT NULL DEFAULT NOW(),
+    updated_at                  TIMESTAMP(3) NOT NULL DEFAULT NOW(),
+    created_by                  VARCHAR(25) NOT NULL,
+    updated_by                  VARCHAR(25) NOT NULL,
 
-ALTER TABLE instrument
-add column datum jsonb;
+    CONSTRAINT pk_instrument PRIMARY KEY (id),
+    CONSTRAINT fk_instrument_class FOREIGN KEY (instrument_class_id) REFERENCES instrument_class (id),
+    CONSTRAINT fk_instrument_currency FOREIGN KEY (currency_id) REFERENCES instrument (id)
+);
 
-create index instrumentgin on instrument using gin (datum);
-
-ALTER TABLE instrument
-add column audit jsonb;
-
-ALTER TABLE equity
-add column audit jsonb;
+create index instrumentgin on instrument_json using gin (datum);
 
 -- +goose Down
-ALTER TABLE instrument
-DROP COLUMN datum;
+DROP datum;
 
-ALTER TABLE instrument
-DROP COLUMN audit;
+DROP TABLE instrument_json;
 
-ALTER TABLE equity
-DROP COLUMN audit;
