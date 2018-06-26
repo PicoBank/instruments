@@ -20,7 +20,5 @@ CREATE TABLE instrument_json (
 create index instrumentgin on instrument_json using gin (datum);
 
 -- +goose Down
-DROP datum;
-
 DROP TABLE instrument_json;
 

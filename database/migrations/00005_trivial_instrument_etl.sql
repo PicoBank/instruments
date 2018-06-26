@@ -39,5 +39,87 @@ CREATE TABLE etl.etl_bats_instrument (
     venue_uncap_date                                DATE
 );
 
+CREATE TABLE etl.etl_csi_stock (
+    CsiNumber			                            INTEGER,
+    Symbol					                        VARCHAR(12),
+    Name                                            VARCHAR(128),
+    Exchange					                    VARCHAR(12),
+    IsActive			                            BOOLEAN,
+    StartDate                                       DATE,
+    EndDate                                         DATE,
+    ConversionFactor						        INTEGER,
+    SwitchCfDate                                    DATE,
+    PreSwitchCf						                INTEGER,
+    SubExchange					                    VARCHAR(12),
+    ExchangeSymbol					                VARCHAR(12)
+);
+
+CREATE TABLE etl.etl_csi_stockoption (
+    CsiNumber			                            INTEGER,
+    Symbol					                        VARCHAR(12),
+    Name                                            VARCHAR(128),
+    Exchange					                    VARCHAR(12),
+    IsActive			                            BOOLEAN,
+    StartDate                                       DATE,
+    EndDate                                         DATE,
+    DivideStrike					                VARCHAR(12),
+    ConversionFactor						        INTEGER,
+    SwitchCfDate                                    DATE,
+    PreSwitchCf						                INTEGER,
+    SubExchange					                    VARCHAR(12),
+    ExchangeSymbol					                VARCHAR(12)
+);
+
+CREATE TABLE etl.etl_csi_commodity (
+    CommercialCsiNumber			                    INTEGER,
+    CommercialDeliveryMonth			                INTEGER,
+    UACsiNumber			                            INTEGER,
+    SymbolCommercial					            VARCHAR(12),
+    SymbolUA					                    VARCHAR(12),
+    Name					                        VARCHAR(128),
+    IsActive			                            BOOLEAN,
+    TerminalPointValue			                    INTEGER,
+    FullPointValue			                        INTEGER,
+    Currency					                    VARCHAR(3),
+    ContractSize						            INTEGER,
+    Units					                        VARCHAR(12),
+    MinimumTick			                            INTEGER,
+    TickValue			                            INTEGER,
+    StartDate                                       DATE,
+    EndDate                                         DATE,
+    ConversionFactorCode						    INTEGER
+);
+
+CREATE TABLE etl.etl_csi_commodityoption (
+    CsiNumber			                            INTEGER,
+    Symbol					                        VARCHAR(12),
+    Name                                            VARCHAR(128),
+    Exchange					                    VARCHAR(12),
+    IsActive			                            BOOLEAN,
+    StartDate                                       DATE,
+    EndDate                                         DATE,
+    DeliveryMonths					                VARCHAR(12),
+    DivideStrike					                VARCHAR(12),
+    ConversionFactor						        INTEGER,
+    HasImplied5Prices			                    BOOLEAN,
+    HasImplied5Strikes			                    BOOLEAN
+);
+
+CREATE TABLE etl.etl_csi_cash (
+    CsiNumber			                            INTEGER,
+    DeliveryMonthCode						        INTEGER,
+    UACsinumber						                INTEGER,
+    Symbol					                        VARCHAR(12),
+    Name                                            VARCHAR(128),
+    IsActive			                            BOOLEAN,
+    Currency						                VARCHAR(3),
+    Units					                        VARCHAR(12),
+    Footnote                                        VARCHAR(512),
+    StartDate                                       DATE,
+    EndDate                                         DATE,
+    DivideStrike					                VARCHAR(12),
+    ConversionFactorCode						    INTEGER
+);
+
 -- +goose Down
-DROP TABLE etl_bats_instrument;
+DROP TABLE etl.etl_bats_instrument;

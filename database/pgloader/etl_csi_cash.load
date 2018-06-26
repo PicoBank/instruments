@@ -1,0 +1,21 @@
+LOAD CSV
+     FROM ALL FILENAMES MATCHING ~<csi.+cashfactsheet.*.csv>
+     IN DIRECTORY '~/Dropbox/PicoBank/DataSets/CSIDATA/'
+     HAVING FIELDS (CsiNumber,DeliveryMonthCode,UACsinumber,Symbol,Name,IsActive,Currency,Units,Footnote,StartDate,EndDate,ConversionFactorCode)
+     INTO postgresql://instruments@localhost:5432/picobank
+     TARGET TABLE etl.etl_csi_cash 
+     TARGET COLUMNS (
+         CsiNumber,DeliveryMonthCode,UACsinumber,Symbol,Name,IsActive,Currency,Units,Footnote,StartDate,EndDate,ConversionFactorCode
+     )
+
+     WITH truncate, 
+          skip header = 1,
+          fields optionally enclosed by '"',
+          fields escaped by double-quote,
+          fields terminated by ','
+
+      SET client_encoding to 'utf8',
+          work_mem to '12MB',
+          standard_conforming_strings to 'on'
+
+
