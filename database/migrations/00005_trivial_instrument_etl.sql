@@ -122,9 +122,9 @@ CREATE TABLE etl.etl_csi_cash (
 );
 
 -- +goose Down
-DROP TABLE etl.etl_bats_instrument;
-DROP TABLE etl.etl_csi_stock;
-DROP TABLE etl.etl_csi_stockoption;
-DROP TABLE etl.etl_csi_commodity;
-DROP TABLE etl.etl_csi_commodityoption;
-DROP TABLE etl.etl_csi_cash;
+DROP TABLE IF EXISTS etl.etl_bats_instrument;
+DROP TABLE IF EXISTS etl.etl_csi_stock;
+DROP TABLE IF EXISTS etl.etl_csi_stockoption;
+DROP TABLE IF EXISTS etl.etl_csi_commodity;
+DROP TABLE IF EXISTS etl.etl_csi_commodityoption;
+DROP TABLE IF EXISTS etl.etl_csi_cash;
