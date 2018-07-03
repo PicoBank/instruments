@@ -113,7 +113,7 @@ CREATE TABLE etl.etl_csi_cash (
     Name                                            VARCHAR(128),
     IsActive			                            BOOLEAN,
     Currency						                VARCHAR(3),
-    Units					                        VARCHAR(12),
+    Units					                        VARCHAR(32),
     Footnote                                        VARCHAR(512),
     StartDate                                       DATE,
     EndDate                                         DATE,
