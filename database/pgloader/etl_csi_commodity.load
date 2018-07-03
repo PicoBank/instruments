@@ -17,5 +17,5 @@ LOAD CSV
       SET client_encoding to 'utf8',
           work_mem to '12MB',
           standard_conforming_strings to 'on'
-
+;
 
