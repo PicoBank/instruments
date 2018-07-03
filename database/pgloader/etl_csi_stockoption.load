@@ -18,4 +18,3 @@ LOAD CSV
           work_mem to '12MB',
           standard_conforming_strings to 'on'
 ;
-

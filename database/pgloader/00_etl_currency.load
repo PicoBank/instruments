@@ -20,7 +20,7 @@ $$,
 $$
     CREATE TABLE etl.etl_currency (
         name                                    VARCHAR(128),
-        symbol                                       VARCHAR(12)
+        symbol                                  VARCHAR(12)
     )
 $$
 
@@ -35,7 +35,8 @@ INSERT INTO instrument (
         name, 
         description, 
         currency_id, 
-        instrument_class_id, 
+        instrument_class_id,
+        instrument_source_id,
         from_date, thru_date, 
         created_at, created_by, 
         updated_at, updated_by
@@ -44,7 +45,8 @@ INSERT INTO instrument (
         'Euro', 
         'Euro',
         NULL,
-        1,
+        1, -- Currency
+        0, -- MISC
         '2001-01-01', '2999-01-01', 
         current_timestamp, 'ETL', 
         current_timestamp, 'ETL')
@@ -56,6 +58,7 @@ INSERT INTO instrument (
         description, 
         currency_id, 
         instrument_class_id, 
+        instrument_source_id,
         from_date, thru_date, 
         created_at, created_by, 
         updated_at, updated_by
@@ -64,7 +67,8 @@ INSERT INTO instrument (
         name,
         name,
         NULL,
-        1,
+        1, -- Currency
+        0, -- MISC
         '2001-01-01', '2999-01-01', 
         current_timestamp, 'ETL', 
         current_timestamp, 'ETL' 
@@ -73,6 +77,4 @@ $$,
 $$
     ALTER SEQUENCE instrument_id_seq RESTART WITH 10000;
 $$
- 
 ;
-

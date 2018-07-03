@@ -21,7 +21,12 @@ LOAD CSV
 
 AFTER LOAD 
 DO 
-    $$ DELETE FROM instrument WHERE id >= 10000 $$
-EXECUTE etl_bats_instrument.sql    
+    $$ 
+    DELETE FROM instrument WHERE instrument_source_id IN (
+        SELECT id FROM instrument_source WHERE name = 'BATS/EU'
+    ) 
+    $$
+
+EXECUTE 01_etl_bats_instrument.sql
 ;
 
