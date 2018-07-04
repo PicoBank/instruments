@@ -1,5 +1,5 @@
 LOAD CSV
-     FROM ALL FILENAMES MATCHING ~<csi.+commodityoptionfactsheet.*.csv>
+     FROM ALL FILENAMES MATCHING ~<csi.+stockoptionfactsheet.*.csv>
      IN DIRECTORY '~/Dropbox/PicoBank/DataSets/CSIDATA/'
      HAVING FIELDS (
          CsiNumber,
@@ -9,14 +9,13 @@ LOAD CSV
          IsActive,
          StartDate,
          EndDate,
-         DeliveryMonths,
          DivideStrike,
          ConversionFactor,
-         HasImplied5Prices,
-         HasImplied5Strikes
+         SwitchCfDate,
+         PreSwitchCf
      )
      INTO postgresql://instruments@localhost:5432/picobank
-     TARGET TABLE etl.etl_csi_commodityoption 
+     TARGET TABLE etl.etl_csi_stockoption 
      TARGET COLUMNS (
          CsiNumber,
          Symbol,
@@ -25,11 +24,10 @@ LOAD CSV
          IsActive,
          StartDate,
          EndDate,
-         DeliveryMonths,
          DivideStrike,
          ConversionFactor,
-         HasImplied5Prices,
-         HasImplied5Strikes
+         SwitchCfDate,
+         PreSwitchCf
      )
 
      WITH truncate, 
@@ -46,10 +44,11 @@ AFTER LOAD
 DO
     $$ 
     DELETE FROM instrument WHERE instrument_source_id IN (
-        SELECT id FROM instrument_source WHERE name = 'CSI/COMMODITYOPTION'
+        SELECT id FROM instrument_source WHERE name = 'CSI/STOCKOPTION'
     )
     $$
 
-EXECUTE 03_etl_csi_commodityoption.sql
+EXECUTE 04_etl_csi_stockoption.sql
 ;
+
 
