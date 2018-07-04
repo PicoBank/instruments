@@ -50,7 +50,7 @@ CREATE TABLE etl.etl_csi_stock (
     ConversionFactor						        INTEGER,
     SwitchCfDate                                    DATE,
     PreSwitchCf						                INTEGER,
-    SubExchange					                    VARCHAR(12),
+    SubExchange					                    VARCHAR(32),
     ExchangeSymbol					                VARCHAR(12)
 );
 
@@ -66,7 +66,7 @@ CREATE TABLE etl.etl_csi_stockoption (
     ConversionFactor						        INTEGER,
     SwitchCfDate                                    DATE,
     PreSwitchCf						                INTEGER,
-    SubExchange					                    VARCHAR(12),
+    SubExchange					                    VARCHAR(32),
     ExchangeSymbol					                VARCHAR(12)
 );
 

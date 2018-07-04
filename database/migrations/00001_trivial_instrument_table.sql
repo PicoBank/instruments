@@ -63,7 +63,6 @@ CREATE TABLE instrument (
 CREATE INDEX idx_instrument_instrument_class_id on instrument(instrument_class_id);
 CREATE INDEX idx_instrument_instrument_source_id on instrument(instrument_source_id);
 CREATE INDEX idx_instrument_instrument_currency on instrument(currency_id);
-CREATE UNIQUE INDEX uidx_instrument_symbol on instrument(symbol);
 
 -- on laisse 10000 ids pour les instruments 'de référence': currencies
 ALTER SEQUENCE instrument_id_seq RESTART WITH 10000;
