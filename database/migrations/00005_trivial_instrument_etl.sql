@@ -81,7 +81,7 @@ CREATE TABLE etl.etl_csi_commodity (
     TerminalPointValue			                    INTEGER,
     FullPointValue			                        INTEGER,
     Currency					                    VARCHAR(3),
-    ContractSize						            INTEGER,
+    ContractSize						            VARCHAR(12),
     Units					                        VARCHAR(12),
     MinimumTick			                            INTEGER,
     TickValue			                            INTEGER,
