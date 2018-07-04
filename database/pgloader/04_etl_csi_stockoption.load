@@ -43,9 +43,10 @@ LOAD CSV
 AFTER LOAD 
 DO
     $$ 
-    DELETE FROM instrument WHERE instrument_source_id IN (
-        SELECT id FROM instrument_source WHERE name = 'CSI/STOCKOPTION'
-    )
+    DELETE FROM instrument 
+        WHERE instrument_source_id = (SELECT id FROM instrument_source WHERE name = 'CSI/STOCKOPTION')
+        AND instrument_class_id = (SELECT id FROM instrument_class WHERE name = 'StockOption')
+        AND symbol in (SELECT Symbol FROM etl.etl_csi_stockoption)
     $$
 
 EXECUTE 04_etl_csi_stockoption.sql
