@@ -1,11 +1,45 @@
 LOAD CSV
-     FROM ALL FILENAMES MATCHING ~<csi.+commodityfactsheet.*.csv>
+     FROM ALL FILENAMES MATCHING ~<csi.+commodityfactsheet \(1\).*.csv>
      IN DIRECTORY '~/Dropbox/PicoBank/DataSets/CSIDATA/'
-     HAVING FIELDS (CommercialCsiNumber,CommercialDeliveryMonth,UACsiNumber,SymbolCommercial,SymbolUA,Name,IsActive,TerminalPointValue,FullPointValue,Currency,ContractSize,Units,MinimumTick,TickValue,StartDate,EndDate,ConversionFactorCode)
+     HAVING FIELDS (
+         CommercialCsiNumber,
+         CommercialDeliveryMonth,
+         UACsiNumber,
+         SymbolCommercial,
+         SymbolUA,
+         Name,
+         IsActive,
+         TerminalPointValue,
+         FullPointValue,
+         Currency,
+         ContractSize,
+         Units,
+         MinimumTick,
+         TickValue,
+         StartDate,
+         EndDate,
+         ConversionFactorCode
+     )
      INTO postgresql://instruments@localhost:5432/picobank
      TARGET TABLE etl.etl_csi_commodity 
      TARGET COLUMNS (
-         CommercialCsiNumber,CommercialDeliveryMonth,UACsiNumber,SymbolCommercial,SymbolUA,Name,IsActive,TerminalPointValue,FullPointValue,Currency,ContractSize,Units,MinimumTick,TickValue,StartDate,EndDate,ConversionFactorCode
+         CommercialCsiNumber,
+         CommercialDeliveryMonth,
+         UACsiNumber,
+         SymbolCommercial,
+         SymbolUA,
+         Name,
+         IsActive,
+         TerminalPointValue,
+         FullPointValue,
+         Currency,
+         ContractSize,
+         Units,
+         MinimumTick,
+         TickValue,
+         StartDate,
+         EndDate,
+         ConversionFactorCode
      )
 
      WITH truncate, 

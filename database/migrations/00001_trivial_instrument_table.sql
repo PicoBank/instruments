@@ -17,11 +17,15 @@ INSERT INTO instrument_class (id, name) VALUES
     (8,   'Index'),
     (9,   'InterestRate'),
     (10,  'Commodity'),
-    (11,  'Miscellaneous');
+    (11,  'CommodityOption'),
+    (12,  'Stock'),
+    (13,  'StockOption'),
+    (14,  'Cash'),
+    (99,  'Miscellaneous');
 
 CREATE TABLE instrument_source (
 	id      SMALLINT NOT NULL,
-	name    VARCHAR(16),
+	name    VARCHAR(32),
 	--
 	CONSTRAINT pk_instrument_source PRIMARY KEY (id)
 );
@@ -29,7 +33,11 @@ CREATE TABLE instrument_source (
 INSERT INTO instrument_source (id, name) VALUES 
     (0,   'MISC'),
     (1,   'BATS/EU'),
-    (2,   'CSI/CASH');
+    (2,   'CSI/CASH'),
+    (3,   'CSI/COMMODITY'),
+    (4,   'CSI/COMMODITYOPTION'),
+    (5,   'CSI/STOCK'),
+    (6,   'CSI/STOCKOPTION');
 
 CREATE TABLE instrument (
     id                          SERIAL,
@@ -55,6 +63,7 @@ CREATE TABLE instrument (
 CREATE INDEX idx_instrument_instrument_class_id on instrument(instrument_class_id);
 CREATE INDEX idx_instrument_instrument_source_id on instrument(instrument_source_id);
 CREATE INDEX idx_instrument_instrument_currency on instrument(currency_id);
+CREATE UNIQUE INDEX uidx_instrument_symbol on instrument(symbol);
 
 -- on laisse 10000 ids pour les instruments 'de référence': currencies
 ALTER SEQUENCE instrument_id_seq RESTART WITH 10000;
