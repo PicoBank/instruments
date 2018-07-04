@@ -1,6 +1,6 @@
 LOAD CSV
      FROM ALL FILENAMES MATCHING ~<csi.+stockfactsheet.*.csv>
-     IN DIRECTORY '~/Dropbox/PicoBank/DataSets/CSIDATA/'
+     IN DIRECTORY '~/Dropbox/PicoBank/DataSets/CSIDATA/' WITH ENCODING iso-8859-1
      HAVING FIELDS (
          CsiNumber,
          Symbol,
