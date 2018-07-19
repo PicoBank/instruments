@@ -1,5 +1,13 @@
 # Notes
 
+## TODOs
+
+- [ ] Cleanup Beego related code
+- [ ] Create an `httprouter` server
+- [ ] Find and use an efficient JSON implementation (gojay ?)
+
+
+
 ## Helpful links
 
 * Converting from Oracle to PostgreSQL: http://www.sqlines.com/oracle-to-postgresql

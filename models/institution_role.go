@@ -4,7 +4,7 @@ import (
 	"time"
 )
 
-// Institution represents an institution
+// InstitutionRole represents an institution role
 type InstitutionRole struct {
 	InstitutionID uint32
 	InstrumentID  uint32
@@ -15,8 +15,4 @@ type InstitutionRole struct {
 	UpdatedAt     time.Time
 	CreatedBy     string
 	UpdatedBy     string
-}
-
-func init() {
-	//orm.RegisterModel(new(InstitutionRole))
 }

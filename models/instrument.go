@@ -2,8 +2,6 @@ package models
 
 import (
 	"time"
-
-	"github.com/astaxie/beego/orm"
 )
 
 // Instrument represents an instrument
@@ -21,36 +19,4 @@ type Instrument struct {
 	UpdatedAt    time.Time
 	CreatedBy    string
 	UpdatedBy    string
-}
-
-func init() {
-	orm.RegisterModel(new(Instrument))
-}
-
-// GetAllInstruments returns the list of all instruments
-// TODO: this is obviously a very simplistic behavior...
-func GetAllInstruments() (instruments []Instrument) {
-	o := orm.NewOrm()
-	o.Using("default")
-
-	qs := o.QueryTable("instrument").RelatedSel()
-
-	qs.All(&instruments)
-	for idx := range instruments {
-		o.LoadRelated(&instruments[idx], "Institutions")
-	}
-	return
-}
-
-// GetOneInstrument returns one instrument from its ID
-func GetOneInstrument(ID uint32) (instrument *Instrument, err error) {
-	instrument = &Instrument{ID: ID}
-	o := orm.NewOrm()
-	o.Using("default")
-
-	err = o.Read(instrument)
-	if err != nil {
-		return nil, err
-	}
-	return instrument, nil
 }

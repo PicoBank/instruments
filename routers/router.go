@@ -1,40 +1,46 @@
-// @APIVersion 1.0.0
-// @Title beego Test API
-// @Description beego has a very cool tools to autogenerate documents for your API
-// @Contact astaxie@gmail.com
-// @TermsOfServiceUrl http://beego.me/
-// @License Apache 2.0
-// @LicenseUrl http://www.apache.org/licenses/LICENSE-2.0.html
 package routers
 
 import (
-	"github.com/picobank/instruments/controllers"
+	"fmt"
+	"log"
+	"net/http"
 
-	"github.com/astaxie/beego"
+	"github.com/json-iterator/go"
+	"github.com/julienschmidt/httprouter"
 )
 
-func init() {
-	ns := beego.NewNamespace("/v1",
-		beego.NSNamespace("/object",
-			beego.NSInclude(
-				&controllers.ObjectController{},
-			),
-		),
-		beego.NSNamespace("/instruments",
-			beego.NSInclude(
-				&controllers.InstrumentController{},
-			),
-		),
-		beego.NSNamespace("/instrument-classes",
-			beego.NSInclude(
-				&controllers.InstrumentClassesController{},
-			),
-		),
-		beego.NSNamespace("/institutions",
-			beego.NSInclude(
-				&controllers.InstitutionController{},
-			),
-		),
-	)
-	beego.AddNamespace(ns)
+type pong struct {
+	Status  string
+	Details map[string]string
+}
+
+var pongValue = pong{
+	Status: "OK",
+	Details: map[string]string{
+		"DB":     "OK",
+		"Cache":  "OK",
+		"Coffee": "OK",
+	},
+}
+
+var router httprouter.Router
+
+func index(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+	fmt.Fprint(w, "Securities Master File 3.14!\n")
+}
+
+func ping(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+	var json = jsoniter.ConfigCompatibleWithStandardLibrary
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(&pongValue)
+}
+
+func Start() {
+	router := httprouter.New()
+
+	router.GET("/", index)
+	router.GET("/ping", ping)
+
+	log.Fatal(http.ListenAndServe(":8080", router))
+
 }

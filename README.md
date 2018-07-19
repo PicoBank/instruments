@@ -15,13 +15,21 @@ git clone https://github.com/picobank/instruments.git
 cd instruments
 ```
 
-# Running the development environment
+# Preparing the development environment
+
+## MacOSX
+    
+    go get -u github.com/golang/dep/cmd/dep
+
+## Docker
 
 Start the development environment:
 
 ```bash
 docker-compose up -d
 ```
+
+# Running the development environment 
 
 The `app` container is bundled with:
  * dep -- dependency manager
@@ -121,20 +129,6 @@ sudo BEEGO_RUNMODE=prod DB_USER=instruments DB_PASSWORD=raspberry DB_HOST=localh
 ```
 
 Connect to `http://raspberrypi.local:8080/v1/instruments`
-
-# Setup notes
-
-Installing BeeGo:
-
-    go get github.com/lib/pq
-    go get github.com/astaxie/beego
-    go get github.com/beego/bee
-
-Code generation:
-
-    cd $GOPATH/src/github.com/picobank
-    bee api instruments -driver=postgresql
-
 
 # Load testing (WIP)
 

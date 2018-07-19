@@ -10,8 +10,7 @@ RUN apk add --no-cache \
         bash
 
 # Install DevTools
-RUN go get -u github.com/beego/bee; \
-    go get -u github.com/pressly/goose/cmd/goose; \
+RUN go get -u github.com/pressly/goose/cmd/goose; \
     curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
-
+# TODO: is curl necessary ? go get -u github.com/golang/dep/cmd/dep ?
 EXPOSE 8080

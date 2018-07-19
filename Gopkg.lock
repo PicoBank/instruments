@@ -10,7 +10,6 @@
     "context/param",
     "grace",
     "logs",
-    "orm",
     "session",
     "toolbox",
     "utils"
@@ -19,19 +18,16 @@
   version = "v1.9.2"
 
 [[projects]]
-  name = "github.com/bxcodec/faker"
-  packages = [
-    ".",
-    "support/slice"
-  ]
-  revision = "1e3dfd53d826aa0d096d235cf8525149287a2834"
-  version = "v1.4.3"
-
-[[projects]]
   branch = "master"
   name = "github.com/gopherjs/gopherjs"
   packages = ["js"]
-  revision = "8dffc02ea1cb8398bb73f30424697c60fcf8d4c5"
+  revision = "0892b62f0d9fb5857760c3cfca837207185117ee"
+
+[[projects]]
+  name = "github.com/json-iterator/go"
+  packages = ["."]
+  revision = "ab8a2e0c74be9d3be70b3184d9acc634935ded82"
+  version = "1.1.4"
 
 [[projects]]
   name = "github.com/jtolds/gls"
@@ -40,13 +36,31 @@
   version = "v4.2.1"
 
 [[projects]]
+  name = "github.com/julienschmidt/httprouter"
+  packages = ["."]
+  revision = "8c199fb6259ffc1af525cc3ad52ee60ba8359669"
+  version = "v1.1"
+
+[[projects]]
   branch = "master"
   name = "github.com/lib/pq"
   packages = [
     ".",
     "oid"
   ]
-  revision = "d34b9ff171c21ad295489235aec8b6626023cd04"
+  revision = "90697d60dd844d5ef6ff15135d0203f65d2f53b8"
+
+[[projects]]
+  name = "github.com/modern-go/concurrent"
+  packages = ["."]
+  revision = "bacd9c7ef1dd9b15be4a9909b8ac7a4e313eec94"
+  version = "1.0.3"
+
+[[projects]]
+  name = "github.com/modern-go/reflect2"
+  packages = ["."]
+  revision = "4b7aa43c6742a2c18fdef89dd197aaae7dac7ccd"
+  version = "1.0.1"
 
 [[projects]]
   name = "github.com/smartystreets/assertions"
@@ -71,6 +85,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "03cb2a17818db6c47d621fb302b5b8260d94df1b7bfe47ff2bf8c2b924a5bd20"
+  inputs-digest = "f298f56775a3dc069ff2a7b65ed66c480a6b714f52877e949cb55633bf9d55d4"
   solver-name = "gps-cdcl"
   solver-version = 1

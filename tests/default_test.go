@@ -7,9 +7,9 @@ import (
 	"runtime"
 	"testing"
 
+	"github.com/astaxie/beego"
 	_ "github.com/picobank/instruments/routers"
 
-	"github.com/astaxie/beego"
 	. "github.com/smartystreets/goconvey/convey"
 )
 
@@ -17,7 +17,7 @@ func init() {
 	_, file, _, _ := runtime.Caller(1)
 	apppath, _ := filepath.Abs(filepath.Dir(filepath.Join(file, ".."+string(filepath.Separator))))
 
-	beego.TestBeegoInit(apppath)
+	// TODO: run the application here
 }
 
 // TestGet is a sample to run an endpoint test
