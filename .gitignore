@@ -12,8 +12,6 @@
 *.out
 .vscode
 
-# Beego & app specific:
+# App specific:
 instruments
-lastupdate.tmp
-instruments.tar.gz
 vendor

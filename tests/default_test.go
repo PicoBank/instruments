@@ -7,7 +7,6 @@ import (
 	"runtime"
 	"testing"
 
-	"github.com/astaxie/beego"
 	_ "github.com/picobank/instruments/routers"
 
 	. "github.com/smartystreets/goconvey/convey"
@@ -24,9 +23,9 @@ func init() {
 func TestGetInstrument(t *testing.T) {
 	r, _ := http.NewRequest("GET", "/v1/instruments/1", nil)
 	w := httptest.NewRecorder()
-	beego.BeeApp.Handlers.ServeHTTP(w, r)
+	//beego.BeeApp.Handlers.ServeHTTP(w, r)
 
-	beego.Trace("testing", "TestGet", "Code[%d]\n%s", w.Code, w.Body.String())
+	//beego.Trace("testing", "TestGet", "Code[%d]\n%s", w.Code, w.Body.String())
 
 	Convey("Subject: Test Instruments Endpoint\n", t, func() {
 		Convey("Status Code Should Be 200", func() {
@@ -41,9 +40,9 @@ func TestGetInstrument(t *testing.T) {
 func TestGetInstrumentClasses(t *testing.T) {
 	r, _ := http.NewRequest("GET", "/v1/instrument-classes", nil)
 	w := httptest.NewRecorder()
-	beego.BeeApp.Handlers.ServeHTTP(w, r)
+	//beego.BeeApp.Handlers.ServeHTTP(w, r)
 
-	beego.Trace("testing", "TestGet", "Code[%d]\n%s", w.Code, w.Body.String())
+	//beego.Trace("testing", "TestGet", "Code[%d]\n%s", w.Code, w.Body.String())
 
 	Convey("Subject: Test Instruments Endpoint\n", t, func() {
 		Convey("Status Code Should Be 200", func() {
