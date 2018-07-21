@@ -17,6 +17,7 @@ cd instruments
 
 # Preparing the development environment
 
+
 ## MacOSX
     
     go get -u github.com/golang/dep/cmd/dep
@@ -29,14 +30,32 @@ Start the development environment:
 docker-compose up -d
 ```
 
-# Running the development environment 
-
 The `app` container is bundled with:
  * dep -- dependency manager
  * beego -- application framework
  * goose -- database migration tool
 
-Run `dep ensure` to make sure vendor/ is in the correct state:
+# Running the development environment 
+
+Run `dep ensure` to make sure vendor/ is in the correct state.
+
+To regenerate SQLBoiler models: 
+
+```bash
+go generate
+```
+
+To test the generated code:
+
+```bash
+go test -v ./models/ -args -test.config=../database/sqlboiler.toml
+```
+
+## MacOSX
+
+TODO
+
+## Docker 
 
 ```bash
 docker-compose exec app dep ensure
@@ -51,7 +70,7 @@ docker-compose exec app goose -dir database/migrations postgres "postgres://inst
 Run the application in development mode:
 
 ```bash
-docker-compose exec app bee run
+docker-compose exec app go run main.go
 ```
 
 Connect to `http://localhost:8080/v1/instruments`

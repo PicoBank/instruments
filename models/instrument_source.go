@@ -20,16 +20,16 @@ import (
 	"gopkg.in/volatiletech/null.v6"
 )
 
-// InstrumentClass is an object representing the database table.
-type InstrumentClass struct {
+// InstrumentSource is an object representing the database table.
+type InstrumentSource struct {
 	ID   int16       `boil:"id" json:"id" toml:"id" yaml:"id"`
 	Name null.String `boil:"name" json:"name,omitempty" toml:"name" yaml:"name,omitempty"`
 
-	R *instrumentClassR `boil:"-" json:"-" toml:"-" yaml:"-"`
-	L instrumentClassL  `boil:"-" json:"-" toml:"-" yaml:"-"`
+	R *instrumentSourceR `boil:"-" json:"-" toml:"-" yaml:"-"`
+	L instrumentSourceL  `boil:"-" json:"-" toml:"-" yaml:"-"`
 }
 
-var InstrumentClassColumns = struct {
+var InstrumentSourceColumns = struct {
 	ID   string
 	Name string
 }{
@@ -37,44 +37,44 @@ var InstrumentClassColumns = struct {
 	Name: "name",
 }
 
-// instrumentClassR is where relationships are stored.
-type instrumentClassR struct {
+// instrumentSourceR is where relationships are stored.
+type instrumentSourceR struct {
 	Instruments InstrumentSlice
 }
 
-// instrumentClassL is where Load methods for each relationship are stored.
-type instrumentClassL struct{}
+// instrumentSourceL is where Load methods for each relationship are stored.
+type instrumentSourceL struct{}
 
 var (
-	instrumentClassColumns               = []string{"id", "name"}
-	instrumentClassColumnsWithoutDefault = []string{"id", "name"}
-	instrumentClassColumnsWithDefault    = []string{}
-	instrumentClassPrimaryKeyColumns     = []string{"id"}
+	instrumentSourceColumns               = []string{"id", "name"}
+	instrumentSourceColumnsWithoutDefault = []string{"id", "name"}
+	instrumentSourceColumnsWithDefault    = []string{}
+	instrumentSourcePrimaryKeyColumns     = []string{"id"}
 )
 
 type (
-	// InstrumentClassSlice is an alias for a slice of pointers to InstrumentClass.
-	// This should generally be used opposed to []InstrumentClass.
-	InstrumentClassSlice []*InstrumentClass
-	// InstrumentClassHook is the signature for custom InstrumentClass hook methods
-	InstrumentClassHook func(boil.Executor, *InstrumentClass) error
+	// InstrumentSourceSlice is an alias for a slice of pointers to InstrumentSource.
+	// This should generally be used opposed to []InstrumentSource.
+	InstrumentSourceSlice []*InstrumentSource
+	// InstrumentSourceHook is the signature for custom InstrumentSource hook methods
+	InstrumentSourceHook func(boil.Executor, *InstrumentSource) error
 
-	instrumentClassQuery struct {
+	instrumentSourceQuery struct {
 		*queries.Query
 	}
 )
 
 // Cache for insert, update and upsert
 var (
-	instrumentClassType                 = reflect.TypeOf(&InstrumentClass{})
-	instrumentClassMapping              = queries.MakeStructMapping(instrumentClassType)
-	instrumentClassPrimaryKeyMapping, _ = queries.BindMapping(instrumentClassType, instrumentClassMapping, instrumentClassPrimaryKeyColumns)
-	instrumentClassInsertCacheMut       sync.RWMutex
-	instrumentClassInsertCache          = make(map[string]insertCache)
-	instrumentClassUpdateCacheMut       sync.RWMutex
-	instrumentClassUpdateCache          = make(map[string]updateCache)
-	instrumentClassUpsertCacheMut       sync.RWMutex
-	instrumentClassUpsertCache          = make(map[string]insertCache)
+	instrumentSourceType                 = reflect.TypeOf(&InstrumentSource{})
+	instrumentSourceMapping              = queries.MakeStructMapping(instrumentSourceType)
+	instrumentSourcePrimaryKeyMapping, _ = queries.BindMapping(instrumentSourceType, instrumentSourceMapping, instrumentSourcePrimaryKeyColumns)
+	instrumentSourceInsertCacheMut       sync.RWMutex
+	instrumentSourceInsertCache          = make(map[string]insertCache)
+	instrumentSourceUpdateCacheMut       sync.RWMutex
+	instrumentSourceUpdateCache          = make(map[string]updateCache)
+	instrumentSourceUpsertCacheMut       sync.RWMutex
+	instrumentSourceUpsertCache          = make(map[string]insertCache)
 )
 
 var (
@@ -83,20 +83,20 @@ var (
 	// Force bytes in case of primary key column that uses []byte (for relationship compares)
 	_ = bytes.MinRead
 )
-var instrumentClassBeforeInsertHooks []InstrumentClassHook
-var instrumentClassBeforeUpdateHooks []InstrumentClassHook
-var instrumentClassBeforeDeleteHooks []InstrumentClassHook
-var instrumentClassBeforeUpsertHooks []InstrumentClassHook
+var instrumentSourceBeforeInsertHooks []InstrumentSourceHook
+var instrumentSourceBeforeUpdateHooks []InstrumentSourceHook
+var instrumentSourceBeforeDeleteHooks []InstrumentSourceHook
+var instrumentSourceBeforeUpsertHooks []InstrumentSourceHook
 
-var instrumentClassAfterInsertHooks []InstrumentClassHook
-var instrumentClassAfterSelectHooks []InstrumentClassHook
-var instrumentClassAfterUpdateHooks []InstrumentClassHook
-var instrumentClassAfterDeleteHooks []InstrumentClassHook
-var instrumentClassAfterUpsertHooks []InstrumentClassHook
+var instrumentSourceAfterInsertHooks []InstrumentSourceHook
+var instrumentSourceAfterSelectHooks []InstrumentSourceHook
+var instrumentSourceAfterUpdateHooks []InstrumentSourceHook
+var instrumentSourceAfterDeleteHooks []InstrumentSourceHook
+var instrumentSourceAfterUpsertHooks []InstrumentSourceHook
 
 // doBeforeInsertHooks executes all "before insert" hooks.
-func (o *InstrumentClass) doBeforeInsertHooks(exec boil.Executor) (err error) {
-	for _, hook := range instrumentClassBeforeInsertHooks {
+func (o *InstrumentSource) doBeforeInsertHooks(exec boil.Executor) (err error) {
+	for _, hook := range instrumentSourceBeforeInsertHooks {
 		if err := hook(exec, o); err != nil {
 			return err
 		}
@@ -106,8 +106,8 @@ func (o *InstrumentClass) doBeforeInsertHooks(exec boil.Executor) (err error) {
 }
 
 // doBeforeUpdateHooks executes all "before Update" hooks.
-func (o *InstrumentClass) doBeforeUpdateHooks(exec boil.Executor) (err error) {
-	for _, hook := range instrumentClassBeforeUpdateHooks {
+func (o *InstrumentSource) doBeforeUpdateHooks(exec boil.Executor) (err error) {
+	for _, hook := range instrumentSourceBeforeUpdateHooks {
 		if err := hook(exec, o); err != nil {
 			return err
 		}
@@ -117,8 +117,8 @@ func (o *InstrumentClass) doBeforeUpdateHooks(exec boil.Executor) (err error) {
 }
 
 // doBeforeDeleteHooks executes all "before Delete" hooks.
-func (o *InstrumentClass) doBeforeDeleteHooks(exec boil.Executor) (err error) {
-	for _, hook := range instrumentClassBeforeDeleteHooks {
+func (o *InstrumentSource) doBeforeDeleteHooks(exec boil.Executor) (err error) {
+	for _, hook := range instrumentSourceBeforeDeleteHooks {
 		if err := hook(exec, o); err != nil {
 			return err
 		}
@@ -128,8 +128,8 @@ func (o *InstrumentClass) doBeforeDeleteHooks(exec boil.Executor) (err error) {
 }
 
 // doBeforeUpsertHooks executes all "before Upsert" hooks.
-func (o *InstrumentClass) doBeforeUpsertHooks(exec boil.Executor) (err error) {
-	for _, hook := range instrumentClassBeforeUpsertHooks {
+func (o *InstrumentSource) doBeforeUpsertHooks(exec boil.Executor) (err error) {
+	for _, hook := range instrumentSourceBeforeUpsertHooks {
 		if err := hook(exec, o); err != nil {
 			return err
 		}
@@ -139,8 +139,8 @@ func (o *InstrumentClass) doBeforeUpsertHooks(exec boil.Executor) (err error) {
 }
 
 // doAfterInsertHooks executes all "after Insert" hooks.
-func (o *InstrumentClass) doAfterInsertHooks(exec boil.Executor) (err error) {
-	for _, hook := range instrumentClassAfterInsertHooks {
+func (o *InstrumentSource) doAfterInsertHooks(exec boil.Executor) (err error) {
+	for _, hook := range instrumentSourceAfterInsertHooks {
 		if err := hook(exec, o); err != nil {
 			return err
 		}
@@ -150,8 +150,8 @@ func (o *InstrumentClass) doAfterInsertHooks(exec boil.Executor) (err error) {
 }
 
 // doAfterSelectHooks executes all "after Select" hooks.
-func (o *InstrumentClass) doAfterSelectHooks(exec boil.Executor) (err error) {
-	for _, hook := range instrumentClassAfterSelectHooks {
+func (o *InstrumentSource) doAfterSelectHooks(exec boil.Executor) (err error) {
+	for _, hook := range instrumentSourceAfterSelectHooks {
 		if err := hook(exec, o); err != nil {
 			return err
 		}
@@ -161,8 +161,8 @@ func (o *InstrumentClass) doAfterSelectHooks(exec boil.Executor) (err error) {
 }
 
 // doAfterUpdateHooks executes all "after Update" hooks.
-func (o *InstrumentClass) doAfterUpdateHooks(exec boil.Executor) (err error) {
-	for _, hook := range instrumentClassAfterUpdateHooks {
+func (o *InstrumentSource) doAfterUpdateHooks(exec boil.Executor) (err error) {
+	for _, hook := range instrumentSourceAfterUpdateHooks {
 		if err := hook(exec, o); err != nil {
 			return err
 		}
@@ -172,8 +172,8 @@ func (o *InstrumentClass) doAfterUpdateHooks(exec boil.Executor) (err error) {
 }
 
 // doAfterDeleteHooks executes all "after Delete" hooks.
-func (o *InstrumentClass) doAfterDeleteHooks(exec boil.Executor) (err error) {
-	for _, hook := range instrumentClassAfterDeleteHooks {
+func (o *InstrumentSource) doAfterDeleteHooks(exec boil.Executor) (err error) {
+	for _, hook := range instrumentSourceAfterDeleteHooks {
 		if err := hook(exec, o); err != nil {
 			return err
 		}
@@ -183,8 +183,8 @@ func (o *InstrumentClass) doAfterDeleteHooks(exec boil.Executor) (err error) {
 }
 
 // doAfterUpsertHooks executes all "after Upsert" hooks.
-func (o *InstrumentClass) doAfterUpsertHooks(exec boil.Executor) (err error) {
-	for _, hook := range instrumentClassAfterUpsertHooks {
+func (o *InstrumentSource) doAfterUpsertHooks(exec boil.Executor) (err error) {
+	for _, hook := range instrumentSourceAfterUpsertHooks {
 		if err := hook(exec, o); err != nil {
 			return err
 		}
@@ -193,32 +193,32 @@ func (o *InstrumentClass) doAfterUpsertHooks(exec boil.Executor) (err error) {
 	return nil
 }
 
-// AddInstrumentClassHook registers your hook function for all future operations.
-func AddInstrumentClassHook(hookPoint boil.HookPoint, instrumentClassHook InstrumentClassHook) {
+// AddInstrumentSourceHook registers your hook function for all future operations.
+func AddInstrumentSourceHook(hookPoint boil.HookPoint, instrumentSourceHook InstrumentSourceHook) {
 	switch hookPoint {
 	case boil.BeforeInsertHook:
-		instrumentClassBeforeInsertHooks = append(instrumentClassBeforeInsertHooks, instrumentClassHook)
+		instrumentSourceBeforeInsertHooks = append(instrumentSourceBeforeInsertHooks, instrumentSourceHook)
 	case boil.BeforeUpdateHook:
-		instrumentClassBeforeUpdateHooks = append(instrumentClassBeforeUpdateHooks, instrumentClassHook)
+		instrumentSourceBeforeUpdateHooks = append(instrumentSourceBeforeUpdateHooks, instrumentSourceHook)
 	case boil.BeforeDeleteHook:
-		instrumentClassBeforeDeleteHooks = append(instrumentClassBeforeDeleteHooks, instrumentClassHook)
+		instrumentSourceBeforeDeleteHooks = append(instrumentSourceBeforeDeleteHooks, instrumentSourceHook)
 	case boil.BeforeUpsertHook:
-		instrumentClassBeforeUpsertHooks = append(instrumentClassBeforeUpsertHooks, instrumentClassHook)
+		instrumentSourceBeforeUpsertHooks = append(instrumentSourceBeforeUpsertHooks, instrumentSourceHook)
 	case boil.AfterInsertHook:
-		instrumentClassAfterInsertHooks = append(instrumentClassAfterInsertHooks, instrumentClassHook)
+		instrumentSourceAfterInsertHooks = append(instrumentSourceAfterInsertHooks, instrumentSourceHook)
 	case boil.AfterSelectHook:
-		instrumentClassAfterSelectHooks = append(instrumentClassAfterSelectHooks, instrumentClassHook)
+		instrumentSourceAfterSelectHooks = append(instrumentSourceAfterSelectHooks, instrumentSourceHook)
 	case boil.AfterUpdateHook:
-		instrumentClassAfterUpdateHooks = append(instrumentClassAfterUpdateHooks, instrumentClassHook)
+		instrumentSourceAfterUpdateHooks = append(instrumentSourceAfterUpdateHooks, instrumentSourceHook)
 	case boil.AfterDeleteHook:
-		instrumentClassAfterDeleteHooks = append(instrumentClassAfterDeleteHooks, instrumentClassHook)
+		instrumentSourceAfterDeleteHooks = append(instrumentSourceAfterDeleteHooks, instrumentSourceHook)
 	case boil.AfterUpsertHook:
-		instrumentClassAfterUpsertHooks = append(instrumentClassAfterUpsertHooks, instrumentClassHook)
+		instrumentSourceAfterUpsertHooks = append(instrumentSourceAfterUpsertHooks, instrumentSourceHook)
 	}
 }
 
-// OneP returns a single instrumentClass record from the query, and panics on error.
-func (q instrumentClassQuery) OneP() *InstrumentClass {
+// OneP returns a single instrumentSource record from the query, and panics on error.
+func (q instrumentSourceQuery) OneP() *InstrumentSource {
 	o, err := q.One()
 	if err != nil {
 		panic(boil.WrapErr(err))
@@ -227,9 +227,9 @@ func (q instrumentClassQuery) OneP() *InstrumentClass {
 	return o
 }
 
-// One returns a single instrumentClass record from the query.
-func (q instrumentClassQuery) One() (*InstrumentClass, error) {
-	o := &InstrumentClass{}
+// One returns a single instrumentSource record from the query.
+func (q instrumentSourceQuery) One() (*InstrumentSource, error) {
+	o := &InstrumentSource{}
 
 	queries.SetLimit(q.Query, 1)
 
@@ -238,7 +238,7 @@ func (q instrumentClassQuery) One() (*InstrumentClass, error) {
 		if errors.Cause(err) == sql.ErrNoRows {
 			return nil, sql.ErrNoRows
 		}
-		return nil, errors.Wrap(err, "models: failed to execute a one query for instrument_class")
+		return nil, errors.Wrap(err, "models: failed to execute a one query for instrument_source")
 	}
 
 	if err := o.doAfterSelectHooks(queries.GetExecutor(q.Query)); err != nil {
@@ -248,8 +248,8 @@ func (q instrumentClassQuery) One() (*InstrumentClass, error) {
 	return o, nil
 }
 
-// AllP returns all InstrumentClass records from the query, and panics on error.
-func (q instrumentClassQuery) AllP() InstrumentClassSlice {
+// AllP returns all InstrumentSource records from the query, and panics on error.
+func (q instrumentSourceQuery) AllP() InstrumentSourceSlice {
 	o, err := q.All()
 	if err != nil {
 		panic(boil.WrapErr(err))
@@ -258,16 +258,16 @@ func (q instrumentClassQuery) AllP() InstrumentClassSlice {
 	return o
 }
 
-// All returns all InstrumentClass records from the query.
-func (q instrumentClassQuery) All() (InstrumentClassSlice, error) {
-	var o []*InstrumentClass
+// All returns all InstrumentSource records from the query.
+func (q instrumentSourceQuery) All() (InstrumentSourceSlice, error) {
+	var o []*InstrumentSource
 
 	err := q.Bind(&o)
 	if err != nil {
-		return nil, errors.Wrap(err, "models: failed to assign all query results to InstrumentClass slice")
+		return nil, errors.Wrap(err, "models: failed to assign all query results to InstrumentSource slice")
 	}
 
-	if len(instrumentClassAfterSelectHooks) != 0 {
+	if len(instrumentSourceAfterSelectHooks) != 0 {
 		for _, obj := range o {
 			if err := obj.doAfterSelectHooks(queries.GetExecutor(q.Query)); err != nil {
 				return o, err
@@ -278,8 +278,8 @@ func (q instrumentClassQuery) All() (InstrumentClassSlice, error) {
 	return o, nil
 }
 
-// CountP returns the count of all InstrumentClass records in the query, and panics on error.
-func (q instrumentClassQuery) CountP() int64 {
+// CountP returns the count of all InstrumentSource records in the query, and panics on error.
+func (q instrumentSourceQuery) CountP() int64 {
 	c, err := q.Count()
 	if err != nil {
 		panic(boil.WrapErr(err))
@@ -288,8 +288,8 @@ func (q instrumentClassQuery) CountP() int64 {
 	return c
 }
 
-// Count returns the count of all InstrumentClass records in the query.
-func (q instrumentClassQuery) Count() (int64, error) {
+// Count returns the count of all InstrumentSource records in the query.
+func (q instrumentSourceQuery) Count() (int64, error) {
 	var count int64
 
 	queries.SetSelect(q.Query, nil)
@@ -297,14 +297,14 @@ func (q instrumentClassQuery) Count() (int64, error) {
 
 	err := q.Query.QueryRow().Scan(&count)
 	if err != nil {
-		return 0, errors.Wrap(err, "models: failed to count instrument_class rows")
+		return 0, errors.Wrap(err, "models: failed to count instrument_source rows")
 	}
 
 	return count, nil
 }
 
 // Exists checks if the row exists in the table, and panics on error.
-func (q instrumentClassQuery) ExistsP() bool {
+func (q instrumentSourceQuery) ExistsP() bool {
 	e, err := q.Exists()
 	if err != nil {
 		panic(boil.WrapErr(err))
@@ -314,7 +314,7 @@ func (q instrumentClassQuery) ExistsP() bool {
 }
 
 // Exists checks if the row exists in the table.
-func (q instrumentClassQuery) Exists() (bool, error) {
+func (q instrumentSourceQuery) Exists() (bool, error) {
 	var count int64
 
 	queries.SetCount(q.Query)
@@ -322,26 +322,26 @@ func (q instrumentClassQuery) Exists() (bool, error) {
 
 	err := q.Query.QueryRow().Scan(&count)
 	if err != nil {
-		return false, errors.Wrap(err, "models: failed to check if instrument_class exists")
+		return false, errors.Wrap(err, "models: failed to check if instrument_source exists")
 	}
 
 	return count > 0, nil
 }
 
 // InstrumentsG retrieves all the instrument's instrument.
-func (o *InstrumentClass) InstrumentsG(mods ...qm.QueryMod) instrumentQuery {
+func (o *InstrumentSource) InstrumentsG(mods ...qm.QueryMod) instrumentQuery {
 	return o.Instruments(boil.GetDB(), mods...)
 }
 
 // Instruments retrieves all the instrument's instrument with an executor.
-func (o *InstrumentClass) Instruments(exec boil.Executor, mods ...qm.QueryMod) instrumentQuery {
+func (o *InstrumentSource) Instruments(exec boil.Executor, mods ...qm.QueryMod) instrumentQuery {
 	var queryMods []qm.QueryMod
 	if len(mods) != 0 {
 		queryMods = append(queryMods, mods...)
 	}
 
 	queryMods = append(queryMods,
-		qm.Where("\"instruments\".\"instrument\".\"instrument_class_id\"=?", o.ID),
+		qm.Where("\"instruments\".\"instrument\".\"instrument_source_id\"=?", o.ID),
 	)
 
 	query := Instruments(exec, queryMods...)
@@ -356,35 +356,35 @@ func (o *InstrumentClass) Instruments(exec boil.Executor, mods ...qm.QueryMod) i
 
 // LoadInstruments allows an eager lookup of values, cached into the
 // loaded structs of the objects.
-func (instrumentClassL) LoadInstruments(e boil.Executor, singular bool, maybeInstrumentClass interface{}) error {
-	var slice []*InstrumentClass
-	var object *InstrumentClass
+func (instrumentSourceL) LoadInstruments(e boil.Executor, singular bool, maybeInstrumentSource interface{}) error {
+	var slice []*InstrumentSource
+	var object *InstrumentSource
 
 	count := 1
 	if singular {
-		object = maybeInstrumentClass.(*InstrumentClass)
+		object = maybeInstrumentSource.(*InstrumentSource)
 	} else {
-		slice = *maybeInstrumentClass.(*[]*InstrumentClass)
+		slice = *maybeInstrumentSource.(*[]*InstrumentSource)
 		count = len(slice)
 	}
 
 	args := make([]interface{}, count)
 	if singular {
 		if object.R == nil {
-			object.R = &instrumentClassR{}
+			object.R = &instrumentSourceR{}
 		}
 		args[0] = object.ID
 	} else {
 		for i, obj := range slice {
 			if obj.R == nil {
-				obj.R = &instrumentClassR{}
+				obj.R = &instrumentSourceR{}
 			}
 			args[i] = obj.ID
 		}
 	}
 
 	query := fmt.Sprintf(
-		"select * from \"instruments\".\"instrument\" where \"instrument_class_id\" in (%s)",
+		"select * from \"instruments\".\"instrument\" where \"instrument_source_id\" in (%s)",
 		strmangle.Placeholders(dialect.IndexPlaceholders, count, 1, 1),
 	)
 	if boil.DebugMode {
@@ -416,7 +416,7 @@ func (instrumentClassL) LoadInstruments(e boil.Executor, singular bool, maybeIns
 
 	for _, foreign := range resultSlice {
 		for _, local := range slice {
-			if local.ID == foreign.InstrumentClassID {
+			if local.ID == foreign.InstrumentSourceID {
 				local.R.Instruments = append(local.R.Instruments, foreign)
 				break
 			}
@@ -427,52 +427,52 @@ func (instrumentClassL) LoadInstruments(e boil.Executor, singular bool, maybeIns
 }
 
 // AddInstrumentsG adds the given related objects to the existing relationships
-// of the instrument_class, optionally inserting them as new records.
+// of the instrument_source, optionally inserting them as new records.
 // Appends related to o.R.Instruments.
-// Sets related.R.InstrumentClass appropriately.
+// Sets related.R.InstrumentSource appropriately.
 // Uses the global database handle.
-func (o *InstrumentClass) AddInstrumentsG(insert bool, related ...*Instrument) error {
+func (o *InstrumentSource) AddInstrumentsG(insert bool, related ...*Instrument) error {
 	return o.AddInstruments(boil.GetDB(), insert, related...)
 }
 
 // AddInstrumentsP adds the given related objects to the existing relationships
-// of the instrument_class, optionally inserting them as new records.
+// of the instrument_source, optionally inserting them as new records.
 // Appends related to o.R.Instruments.
-// Sets related.R.InstrumentClass appropriately.
+// Sets related.R.InstrumentSource appropriately.
 // Panics on error.
-func (o *InstrumentClass) AddInstrumentsP(exec boil.Executor, insert bool, related ...*Instrument) {
+func (o *InstrumentSource) AddInstrumentsP(exec boil.Executor, insert bool, related ...*Instrument) {
 	if err := o.AddInstruments(exec, insert, related...); err != nil {
 		panic(boil.WrapErr(err))
 	}
 }
 
 // AddInstrumentsGP adds the given related objects to the existing relationships
-// of the instrument_class, optionally inserting them as new records.
+// of the instrument_source, optionally inserting them as new records.
 // Appends related to o.R.Instruments.
-// Sets related.R.InstrumentClass appropriately.
+// Sets related.R.InstrumentSource appropriately.
 // Uses the global database handle and panics on error.
-func (o *InstrumentClass) AddInstrumentsGP(insert bool, related ...*Instrument) {
+func (o *InstrumentSource) AddInstrumentsGP(insert bool, related ...*Instrument) {
 	if err := o.AddInstruments(boil.GetDB(), insert, related...); err != nil {
 		panic(boil.WrapErr(err))
 	}
 }
 
 // AddInstruments adds the given related objects to the existing relationships
-// of the instrument_class, optionally inserting them as new records.
+// of the instrument_source, optionally inserting them as new records.
 // Appends related to o.R.Instruments.
-// Sets related.R.InstrumentClass appropriately.
-func (o *InstrumentClass) AddInstruments(exec boil.Executor, insert bool, related ...*Instrument) error {
+// Sets related.R.InstrumentSource appropriately.
+func (o *InstrumentSource) AddInstruments(exec boil.Executor, insert bool, related ...*Instrument) error {
 	var err error
 	for _, rel := range related {
 		if insert {
-			rel.InstrumentClassID = o.ID
+			rel.InstrumentSourceID = o.ID
 			if err = rel.Insert(exec); err != nil {
 				return errors.Wrap(err, "failed to insert into foreign table")
 			}
 		} else {
 			updateQuery := fmt.Sprintf(
 				"UPDATE \"instruments\".\"instrument\" SET %s WHERE %s",
-				strmangle.SetParamNames("\"", "\"", 1, []string{"instrument_class_id"}),
+				strmangle.SetParamNames("\"", "\"", 1, []string{"instrument_source_id"}),
 				strmangle.WhereClause("\"", "\"", 2, instrumentPrimaryKeyColumns),
 			)
 			values := []interface{}{o.ID, rel.ID}
@@ -486,12 +486,12 @@ func (o *InstrumentClass) AddInstruments(exec boil.Executor, insert bool, relate
 				return errors.Wrap(err, "failed to update foreign table")
 			}
 
-			rel.InstrumentClassID = o.ID
+			rel.InstrumentSourceID = o.ID
 		}
 	}
 
 	if o.R == nil {
-		o.R = &instrumentClassR{
+		o.R = &instrumentSourceR{
 			Instruments: related,
 		}
 	} else {
@@ -501,34 +501,34 @@ func (o *InstrumentClass) AddInstruments(exec boil.Executor, insert bool, relate
 	for _, rel := range related {
 		if rel.R == nil {
 			rel.R = &instrumentR{
-				InstrumentClass: o,
+				InstrumentSource: o,
 			}
 		} else {
-			rel.R.InstrumentClass = o
+			rel.R.InstrumentSource = o
 		}
 	}
 	return nil
 }
 
-// InstrumentClassesG retrieves all records.
-func InstrumentClassesG(mods ...qm.QueryMod) instrumentClassQuery {
-	return InstrumentClasses(boil.GetDB(), mods...)
+// InstrumentSourcesG retrieves all records.
+func InstrumentSourcesG(mods ...qm.QueryMod) instrumentSourceQuery {
+	return InstrumentSources(boil.GetDB(), mods...)
 }
 
-// InstrumentClasses retrieves all the records using an executor.
-func InstrumentClasses(exec boil.Executor, mods ...qm.QueryMod) instrumentClassQuery {
-	mods = append(mods, qm.From("\"instruments\".\"instrument_class\""))
-	return instrumentClassQuery{NewQuery(exec, mods...)}
+// InstrumentSources retrieves all the records using an executor.
+func InstrumentSources(exec boil.Executor, mods ...qm.QueryMod) instrumentSourceQuery {
+	mods = append(mods, qm.From("\"instruments\".\"instrument_source\""))
+	return instrumentSourceQuery{NewQuery(exec, mods...)}
 }
 
-// FindInstrumentClassG retrieves a single record by ID.
-func FindInstrumentClassG(id int16, selectCols ...string) (*InstrumentClass, error) {
-	return FindInstrumentClass(boil.GetDB(), id, selectCols...)
+// FindInstrumentSourceG retrieves a single record by ID.
+func FindInstrumentSourceG(id int16, selectCols ...string) (*InstrumentSource, error) {
+	return FindInstrumentSource(boil.GetDB(), id, selectCols...)
 }
 
-// FindInstrumentClassGP retrieves a single record by ID, and panics on error.
-func FindInstrumentClassGP(id int16, selectCols ...string) *InstrumentClass {
-	retobj, err := FindInstrumentClass(boil.GetDB(), id, selectCols...)
+// FindInstrumentSourceGP retrieves a single record by ID, and panics on error.
+func FindInstrumentSourceGP(id int16, selectCols ...string) *InstrumentSource {
+	retobj, err := FindInstrumentSource(boil.GetDB(), id, selectCols...)
 	if err != nil {
 		panic(boil.WrapErr(err))
 	}
@@ -536,35 +536,35 @@ func FindInstrumentClassGP(id int16, selectCols ...string) *InstrumentClass {
 	return retobj
 }
 
-// FindInstrumentClass retrieves a single record by ID with an executor.
+// FindInstrumentSource retrieves a single record by ID with an executor.
 // If selectCols is empty Find will return all columns.
-func FindInstrumentClass(exec boil.Executor, id int16, selectCols ...string) (*InstrumentClass, error) {
-	instrumentClassObj := &InstrumentClass{}
+func FindInstrumentSource(exec boil.Executor, id int16, selectCols ...string) (*InstrumentSource, error) {
+	instrumentSourceObj := &InstrumentSource{}
 
 	sel := "*"
 	if len(selectCols) > 0 {
 		sel = strings.Join(strmangle.IdentQuoteSlice(dialect.LQ, dialect.RQ, selectCols), ",")
 	}
 	query := fmt.Sprintf(
-		"select %s from \"instruments\".\"instrument_class\" where \"id\"=$1", sel,
+		"select %s from \"instruments\".\"instrument_source\" where \"id\"=$1", sel,
 	)
 
 	q := queries.Raw(exec, query, id)
 
-	err := q.Bind(instrumentClassObj)
+	err := q.Bind(instrumentSourceObj)
 	if err != nil {
 		if errors.Cause(err) == sql.ErrNoRows {
 			return nil, sql.ErrNoRows
 		}
-		return nil, errors.Wrap(err, "models: unable to select from instrument_class")
+		return nil, errors.Wrap(err, "models: unable to select from instrument_source")
 	}
 
-	return instrumentClassObj, nil
+	return instrumentSourceObj, nil
 }
 
-// FindInstrumentClassP retrieves a single record by ID with an executor, and panics on error.
-func FindInstrumentClassP(exec boil.Executor, id int16, selectCols ...string) *InstrumentClass {
-	retobj, err := FindInstrumentClass(exec, id, selectCols...)
+// FindInstrumentSourceP retrieves a single record by ID with an executor, and panics on error.
+func FindInstrumentSourceP(exec boil.Executor, id int16, selectCols ...string) *InstrumentSource {
+	retobj, err := FindInstrumentSource(exec, id, selectCols...)
 	if err != nil {
 		panic(boil.WrapErr(err))
 	}
@@ -573,13 +573,13 @@ func FindInstrumentClassP(exec boil.Executor, id int16, selectCols ...string) *I
 }
 
 // InsertG a single record. See Insert for whitelist behavior description.
-func (o *InstrumentClass) InsertG(whitelist ...string) error {
+func (o *InstrumentSource) InsertG(whitelist ...string) error {
 	return o.Insert(boil.GetDB(), whitelist...)
 }
 
 // InsertGP a single record, and panics on error. See Insert for whitelist
 // behavior description.
-func (o *InstrumentClass) InsertGP(whitelist ...string) {
+func (o *InstrumentSource) InsertGP(whitelist ...string) {
 	if err := o.Insert(boil.GetDB(), whitelist...); err != nil {
 		panic(boil.WrapErr(err))
 	}
@@ -587,7 +587,7 @@ func (o *InstrumentClass) InsertGP(whitelist ...string) {
 
 // InsertP a single record using an executor, and panics on error. See Insert
 // for whitelist behavior description.
-func (o *InstrumentClass) InsertP(exec boil.Executor, whitelist ...string) {
+func (o *InstrumentSource) InsertP(exec boil.Executor, whitelist ...string) {
 	if err := o.Insert(exec, whitelist...); err != nil {
 		panic(boil.WrapErr(err))
 	}
@@ -598,9 +598,9 @@ func (o *InstrumentClass) InsertP(exec boil.Executor, whitelist ...string) {
 // No whitelist behavior: Without a whitelist, columns are inferred by the following rules:
 // - All columns without a default value are included (i.e. name, age)
 // - All columns with a default, but non-zero are included (i.e. health = 75)
-func (o *InstrumentClass) Insert(exec boil.Executor, whitelist ...string) error {
+func (o *InstrumentSource) Insert(exec boil.Executor, whitelist ...string) error {
 	if o == nil {
-		return errors.New("models: no instrument_class provided for insertion")
+		return errors.New("models: no instrument_source provided for insertion")
 	}
 
 	var err error
@@ -609,34 +609,34 @@ func (o *InstrumentClass) Insert(exec boil.Executor, whitelist ...string) error 
 		return err
 	}
 
-	nzDefaults := queries.NonZeroDefaultSet(instrumentClassColumnsWithDefault, o)
+	nzDefaults := queries.NonZeroDefaultSet(instrumentSourceColumnsWithDefault, o)
 
 	key := makeCacheKey(whitelist, nzDefaults)
-	instrumentClassInsertCacheMut.RLock()
-	cache, cached := instrumentClassInsertCache[key]
-	instrumentClassInsertCacheMut.RUnlock()
+	instrumentSourceInsertCacheMut.RLock()
+	cache, cached := instrumentSourceInsertCache[key]
+	instrumentSourceInsertCacheMut.RUnlock()
 
 	if !cached {
 		wl, returnColumns := strmangle.InsertColumnSet(
-			instrumentClassColumns,
-			instrumentClassColumnsWithDefault,
-			instrumentClassColumnsWithoutDefault,
+			instrumentSourceColumns,
+			instrumentSourceColumnsWithDefault,
+			instrumentSourceColumnsWithoutDefault,
 			nzDefaults,
 			whitelist,
 		)
 
-		cache.valueMapping, err = queries.BindMapping(instrumentClassType, instrumentClassMapping, wl)
+		cache.valueMapping, err = queries.BindMapping(instrumentSourceType, instrumentSourceMapping, wl)
 		if err != nil {
 			return err
 		}
-		cache.retMapping, err = queries.BindMapping(instrumentClassType, instrumentClassMapping, returnColumns)
+		cache.retMapping, err = queries.BindMapping(instrumentSourceType, instrumentSourceMapping, returnColumns)
 		if err != nil {
 			return err
 		}
 		if len(wl) != 0 {
-			cache.query = fmt.Sprintf("INSERT INTO \"instruments\".\"instrument_class\" (\"%s\") %%sVALUES (%s)%%s", strings.Join(wl, "\",\""), strmangle.Placeholders(dialect.IndexPlaceholders, len(wl), 1, 1))
+			cache.query = fmt.Sprintf("INSERT INTO \"instruments\".\"instrument_source\" (\"%s\") %%sVALUES (%s)%%s", strings.Join(wl, "\",\""), strmangle.Placeholders(dialect.IndexPlaceholders, len(wl), 1, 1))
 		} else {
-			cache.query = "INSERT INTO \"instruments\".\"instrument_class\" DEFAULT VALUES"
+			cache.query = "INSERT INTO \"instruments\".\"instrument_source\" DEFAULT VALUES"
 		}
 
 		var queryOutput, queryReturning string
@@ -665,63 +665,63 @@ func (o *InstrumentClass) Insert(exec boil.Executor, whitelist ...string) error 
 	}
 
 	if err != nil {
-		return errors.Wrap(err, "models: unable to insert into instrument_class")
+		return errors.Wrap(err, "models: unable to insert into instrument_source")
 	}
 
 	if !cached {
-		instrumentClassInsertCacheMut.Lock()
-		instrumentClassInsertCache[key] = cache
-		instrumentClassInsertCacheMut.Unlock()
+		instrumentSourceInsertCacheMut.Lock()
+		instrumentSourceInsertCache[key] = cache
+		instrumentSourceInsertCacheMut.Unlock()
 	}
 
 	return o.doAfterInsertHooks(exec)
 }
 
-// UpdateG a single InstrumentClass record. See Update for
+// UpdateG a single InstrumentSource record. See Update for
 // whitelist behavior description.
-func (o *InstrumentClass) UpdateG(whitelist ...string) error {
+func (o *InstrumentSource) UpdateG(whitelist ...string) error {
 	return o.Update(boil.GetDB(), whitelist...)
 }
 
-// UpdateGP a single InstrumentClass record.
+// UpdateGP a single InstrumentSource record.
 // UpdateGP takes a whitelist of column names that should be updated.
 // Panics on error. See Update for whitelist behavior description.
-func (o *InstrumentClass) UpdateGP(whitelist ...string) {
+func (o *InstrumentSource) UpdateGP(whitelist ...string) {
 	if err := o.Update(boil.GetDB(), whitelist...); err != nil {
 		panic(boil.WrapErr(err))
 	}
 }
 
-// UpdateP uses an executor to update the InstrumentClass, and panics on error.
+// UpdateP uses an executor to update the InstrumentSource, and panics on error.
 // See Update for whitelist behavior description.
-func (o *InstrumentClass) UpdateP(exec boil.Executor, whitelist ...string) {
+func (o *InstrumentSource) UpdateP(exec boil.Executor, whitelist ...string) {
 	err := o.Update(exec, whitelist...)
 	if err != nil {
 		panic(boil.WrapErr(err))
 	}
 }
 
-// Update uses an executor to update the InstrumentClass.
+// Update uses an executor to update the InstrumentSource.
 // Whitelist behavior: If a whitelist is provided, only the columns given are updated.
 // No whitelist behavior: Without a whitelist, columns are inferred by the following rules:
 // - All columns are inferred to start with
 // - All primary keys are subtracted from this set
 // Update does not automatically update the record in case of default values. Use .Reload()
 // to refresh the records.
-func (o *InstrumentClass) Update(exec boil.Executor, whitelist ...string) error {
+func (o *InstrumentSource) Update(exec boil.Executor, whitelist ...string) error {
 	var err error
 	if err = o.doBeforeUpdateHooks(exec); err != nil {
 		return err
 	}
 	key := makeCacheKey(whitelist, nil)
-	instrumentClassUpdateCacheMut.RLock()
-	cache, cached := instrumentClassUpdateCache[key]
-	instrumentClassUpdateCacheMut.RUnlock()
+	instrumentSourceUpdateCacheMut.RLock()
+	cache, cached := instrumentSourceUpdateCache[key]
+	instrumentSourceUpdateCacheMut.RUnlock()
 
 	if !cached {
 		wl := strmangle.UpdateColumnSet(
-			instrumentClassColumns,
-			instrumentClassPrimaryKeyColumns,
+			instrumentSourceColumns,
+			instrumentSourcePrimaryKeyColumns,
 			whitelist,
 		)
 
@@ -729,14 +729,14 @@ func (o *InstrumentClass) Update(exec boil.Executor, whitelist ...string) error 
 			wl = strmangle.SetComplement(wl, []string{"created_at"})
 		}
 		if len(wl) == 0 {
-			return errors.New("models: unable to update instrument_class, could not build whitelist")
+			return errors.New("models: unable to update instrument_source, could not build whitelist")
 		}
 
-		cache.query = fmt.Sprintf("UPDATE \"instruments\".\"instrument_class\" SET %s WHERE %s",
+		cache.query = fmt.Sprintf("UPDATE \"instruments\".\"instrument_source\" SET %s WHERE %s",
 			strmangle.SetParamNames("\"", "\"", 1, wl),
-			strmangle.WhereClause("\"", "\"", len(wl)+1, instrumentClassPrimaryKeyColumns),
+			strmangle.WhereClause("\"", "\"", len(wl)+1, instrumentSourcePrimaryKeyColumns),
 		)
-		cache.valueMapping, err = queries.BindMapping(instrumentClassType, instrumentClassMapping, append(wl, instrumentClassPrimaryKeyColumns...))
+		cache.valueMapping, err = queries.BindMapping(instrumentSourceType, instrumentSourceMapping, append(wl, instrumentSourcePrimaryKeyColumns...))
 		if err != nil {
 			return err
 		}
@@ -751,58 +751,58 @@ func (o *InstrumentClass) Update(exec boil.Executor, whitelist ...string) error 
 
 	_, err = exec.Exec(cache.query, values...)
 	if err != nil {
-		return errors.Wrap(err, "models: unable to update instrument_class row")
+		return errors.Wrap(err, "models: unable to update instrument_source row")
 	}
 
 	if !cached {
-		instrumentClassUpdateCacheMut.Lock()
-		instrumentClassUpdateCache[key] = cache
-		instrumentClassUpdateCacheMut.Unlock()
+		instrumentSourceUpdateCacheMut.Lock()
+		instrumentSourceUpdateCache[key] = cache
+		instrumentSourceUpdateCacheMut.Unlock()
 	}
 
 	return o.doAfterUpdateHooks(exec)
 }
 
 // UpdateAllP updates all rows with matching column names, and panics on error.
-func (q instrumentClassQuery) UpdateAllP(cols M) {
+func (q instrumentSourceQuery) UpdateAllP(cols M) {
 	if err := q.UpdateAll(cols); err != nil {
 		panic(boil.WrapErr(err))
 	}
 }
 
 // UpdateAll updates all rows with the specified column values.
-func (q instrumentClassQuery) UpdateAll(cols M) error {
+func (q instrumentSourceQuery) UpdateAll(cols M) error {
 	queries.SetUpdate(q.Query, cols)
 
 	_, err := q.Query.Exec()
 	if err != nil {
-		return errors.Wrap(err, "models: unable to update all for instrument_class")
+		return errors.Wrap(err, "models: unable to update all for instrument_source")
 	}
 
 	return nil
 }
 
 // UpdateAllG updates all rows with the specified column values.
-func (o InstrumentClassSlice) UpdateAllG(cols M) error {
+func (o InstrumentSourceSlice) UpdateAllG(cols M) error {
 	return o.UpdateAll(boil.GetDB(), cols)
 }
 
 // UpdateAllGP updates all rows with the specified column values, and panics on error.
-func (o InstrumentClassSlice) UpdateAllGP(cols M) {
+func (o InstrumentSourceSlice) UpdateAllGP(cols M) {
 	if err := o.UpdateAll(boil.GetDB(), cols); err != nil {
 		panic(boil.WrapErr(err))
 	}
 }
 
 // UpdateAllP updates all rows with the specified column values, and panics on error.
-func (o InstrumentClassSlice) UpdateAllP(exec boil.Executor, cols M) {
+func (o InstrumentSourceSlice) UpdateAllP(exec boil.Executor, cols M) {
 	if err := o.UpdateAll(exec, cols); err != nil {
 		panic(boil.WrapErr(err))
 	}
 }
 
 // UpdateAll updates all rows with the specified column values, using an executor.
-func (o InstrumentClassSlice) UpdateAll(exec boil.Executor, cols M) error {
+func (o InstrumentSourceSlice) UpdateAll(exec boil.Executor, cols M) error {
 	ln := int64(len(o))
 	if ln == 0 {
 		return nil
@@ -824,13 +824,13 @@ func (o InstrumentClassSlice) UpdateAll(exec boil.Executor, cols M) error {
 
 	// Append all of the primary key values for each column
 	for _, obj := range o {
-		pkeyArgs := queries.ValuesFromMapping(reflect.Indirect(reflect.ValueOf(obj)), instrumentClassPrimaryKeyMapping)
+		pkeyArgs := queries.ValuesFromMapping(reflect.Indirect(reflect.ValueOf(obj)), instrumentSourcePrimaryKeyMapping)
 		args = append(args, pkeyArgs...)
 	}
 
-	sql := fmt.Sprintf("UPDATE \"instruments\".\"instrument_class\" SET %s WHERE %s",
+	sql := fmt.Sprintf("UPDATE \"instruments\".\"instrument_source\" SET %s WHERE %s",
 		strmangle.SetParamNames("\"", "\"", 1, colNames),
-		strmangle.WhereClauseRepeated(string(dialect.LQ), string(dialect.RQ), len(colNames)+1, instrumentClassPrimaryKeyColumns, len(o)))
+		strmangle.WhereClauseRepeated(string(dialect.LQ), string(dialect.RQ), len(colNames)+1, instrumentSourcePrimaryKeyColumns, len(o)))
 
 	if boil.DebugMode {
 		fmt.Fprintln(boil.DebugWriter, sql)
@@ -839,19 +839,19 @@ func (o InstrumentClassSlice) UpdateAll(exec boil.Executor, cols M) error {
 
 	_, err := exec.Exec(sql, args...)
 	if err != nil {
-		return errors.Wrap(err, "models: unable to update all in instrumentClass slice")
+		return errors.Wrap(err, "models: unable to update all in instrumentSource slice")
 	}
 
 	return nil
 }
 
 // UpsertG attempts an insert, and does an update or ignore on conflict.
-func (o *InstrumentClass) UpsertG(updateOnConflict bool, conflictColumns []string, updateColumns []string, whitelist ...string) error {
+func (o *InstrumentSource) UpsertG(updateOnConflict bool, conflictColumns []string, updateColumns []string, whitelist ...string) error {
 	return o.Upsert(boil.GetDB(), updateOnConflict, conflictColumns, updateColumns, whitelist...)
 }
 
 // UpsertGP attempts an insert, and does an update or ignore on conflict. Panics on error.
-func (o *InstrumentClass) UpsertGP(updateOnConflict bool, conflictColumns []string, updateColumns []string, whitelist ...string) {
+func (o *InstrumentSource) UpsertGP(updateOnConflict bool, conflictColumns []string, updateColumns []string, whitelist ...string) {
 	if err := o.Upsert(boil.GetDB(), updateOnConflict, conflictColumns, updateColumns, whitelist...); err != nil {
 		panic(boil.WrapErr(err))
 	}
@@ -859,23 +859,23 @@ func (o *InstrumentClass) UpsertGP(updateOnConflict bool, conflictColumns []stri
 
 // UpsertP attempts an insert using an executor, and does an update or ignore on conflict.
 // UpsertP panics on error.
-func (o *InstrumentClass) UpsertP(exec boil.Executor, updateOnConflict bool, conflictColumns []string, updateColumns []string, whitelist ...string) {
+func (o *InstrumentSource) UpsertP(exec boil.Executor, updateOnConflict bool, conflictColumns []string, updateColumns []string, whitelist ...string) {
 	if err := o.Upsert(exec, updateOnConflict, conflictColumns, updateColumns, whitelist...); err != nil {
 		panic(boil.WrapErr(err))
 	}
 }
 
 // Upsert attempts an insert using an executor, and does an update or ignore on conflict.
-func (o *InstrumentClass) Upsert(exec boil.Executor, updateOnConflict bool, conflictColumns []string, updateColumns []string, whitelist ...string) error {
+func (o *InstrumentSource) Upsert(exec boil.Executor, updateOnConflict bool, conflictColumns []string, updateColumns []string, whitelist ...string) error {
 	if o == nil {
-		return errors.New("models: no instrument_class provided for upsert")
+		return errors.New("models: no instrument_source provided for upsert")
 	}
 
 	if err := o.doBeforeUpsertHooks(exec); err != nil {
 		return err
 	}
 
-	nzDefaults := queries.NonZeroDefaultSet(instrumentClassColumnsWithDefault, o)
+	nzDefaults := queries.NonZeroDefaultSet(instrumentSourceColumnsWithDefault, o)
 
 	// Build cache key in-line uglily - mysql vs postgres problems
 	buf := strmangle.GetBuffer()
@@ -904,43 +904,43 @@ func (o *InstrumentClass) Upsert(exec boil.Executor, updateOnConflict bool, conf
 	key := buf.String()
 	strmangle.PutBuffer(buf)
 
-	instrumentClassUpsertCacheMut.RLock()
-	cache, cached := instrumentClassUpsertCache[key]
-	instrumentClassUpsertCacheMut.RUnlock()
+	instrumentSourceUpsertCacheMut.RLock()
+	cache, cached := instrumentSourceUpsertCache[key]
+	instrumentSourceUpsertCacheMut.RUnlock()
 
 	var err error
 
 	if !cached {
 		insert, ret := strmangle.InsertColumnSet(
-			instrumentClassColumns,
-			instrumentClassColumnsWithDefault,
-			instrumentClassColumnsWithoutDefault,
+			instrumentSourceColumns,
+			instrumentSourceColumnsWithDefault,
+			instrumentSourceColumnsWithoutDefault,
 			nzDefaults,
 			whitelist,
 		)
 
 		update := strmangle.UpdateColumnSet(
-			instrumentClassColumns,
-			instrumentClassPrimaryKeyColumns,
+			instrumentSourceColumns,
+			instrumentSourcePrimaryKeyColumns,
 			updateColumns,
 		)
 		if len(update) == 0 {
-			return errors.New("models: unable to upsert instrument_class, could not build update column list")
+			return errors.New("models: unable to upsert instrument_source, could not build update column list")
 		}
 
 		conflict := conflictColumns
 		if len(conflict) == 0 {
-			conflict = make([]string, len(instrumentClassPrimaryKeyColumns))
-			copy(conflict, instrumentClassPrimaryKeyColumns)
+			conflict = make([]string, len(instrumentSourcePrimaryKeyColumns))
+			copy(conflict, instrumentSourcePrimaryKeyColumns)
 		}
-		cache.query = queries.BuildUpsertQueryPostgres(dialect, "\"instruments\".\"instrument_class\"", updateOnConflict, ret, update, conflict, insert)
+		cache.query = queries.BuildUpsertQueryPostgres(dialect, "\"instruments\".\"instrument_source\"", updateOnConflict, ret, update, conflict, insert)
 
-		cache.valueMapping, err = queries.BindMapping(instrumentClassType, instrumentClassMapping, insert)
+		cache.valueMapping, err = queries.BindMapping(instrumentSourceType, instrumentSourceMapping, insert)
 		if err != nil {
 			return err
 		}
 		if len(ret) != 0 {
-			cache.retMapping, err = queries.BindMapping(instrumentClassType, instrumentClassMapping, ret)
+			cache.retMapping, err = queries.BindMapping(instrumentSourceType, instrumentSourceMapping, ret)
 			if err != nil {
 				return err
 			}
@@ -968,59 +968,59 @@ func (o *InstrumentClass) Upsert(exec boil.Executor, updateOnConflict bool, conf
 		_, err = exec.Exec(cache.query, vals...)
 	}
 	if err != nil {
-		return errors.Wrap(err, "models: unable to upsert instrument_class")
+		return errors.Wrap(err, "models: unable to upsert instrument_source")
 	}
 
 	if !cached {
-		instrumentClassUpsertCacheMut.Lock()
-		instrumentClassUpsertCache[key] = cache
-		instrumentClassUpsertCacheMut.Unlock()
+		instrumentSourceUpsertCacheMut.Lock()
+		instrumentSourceUpsertCache[key] = cache
+		instrumentSourceUpsertCacheMut.Unlock()
 	}
 
 	return o.doAfterUpsertHooks(exec)
 }
 
-// DeleteP deletes a single InstrumentClass record with an executor.
+// DeleteP deletes a single InstrumentSource record with an executor.
 // DeleteP will match against the primary key column to find the record to delete.
 // Panics on error.
-func (o *InstrumentClass) DeleteP(exec boil.Executor) {
+func (o *InstrumentSource) DeleteP(exec boil.Executor) {
 	if err := o.Delete(exec); err != nil {
 		panic(boil.WrapErr(err))
 	}
 }
 
-// DeleteG deletes a single InstrumentClass record.
+// DeleteG deletes a single InstrumentSource record.
 // DeleteG will match against the primary key column to find the record to delete.
-func (o *InstrumentClass) DeleteG() error {
+func (o *InstrumentSource) DeleteG() error {
 	if o == nil {
-		return errors.New("models: no InstrumentClass provided for deletion")
+		return errors.New("models: no InstrumentSource provided for deletion")
 	}
 
 	return o.Delete(boil.GetDB())
 }
 
-// DeleteGP deletes a single InstrumentClass record.
+// DeleteGP deletes a single InstrumentSource record.
 // DeleteGP will match against the primary key column to find the record to delete.
 // Panics on error.
-func (o *InstrumentClass) DeleteGP() {
+func (o *InstrumentSource) DeleteGP() {
 	if err := o.DeleteG(); err != nil {
 		panic(boil.WrapErr(err))
 	}
 }
 
-// Delete deletes a single InstrumentClass record with an executor.
+// Delete deletes a single InstrumentSource record with an executor.
 // Delete will match against the primary key column to find the record to delete.
-func (o *InstrumentClass) Delete(exec boil.Executor) error {
+func (o *InstrumentSource) Delete(exec boil.Executor) error {
 	if o == nil {
-		return errors.New("models: no InstrumentClass provided for delete")
+		return errors.New("models: no InstrumentSource provided for delete")
 	}
 
 	if err := o.doBeforeDeleteHooks(exec); err != nil {
 		return err
 	}
 
-	args := queries.ValuesFromMapping(reflect.Indirect(reflect.ValueOf(o)), instrumentClassPrimaryKeyMapping)
-	sql := "DELETE FROM \"instruments\".\"instrument_class\" WHERE \"id\"=$1"
+	args := queries.ValuesFromMapping(reflect.Indirect(reflect.ValueOf(o)), instrumentSourcePrimaryKeyMapping)
+	sql := "DELETE FROM \"instruments\".\"instrument_source\" WHERE \"id\"=$1"
 
 	if boil.DebugMode {
 		fmt.Fprintln(boil.DebugWriter, sql)
@@ -1029,7 +1029,7 @@ func (o *InstrumentClass) Delete(exec boil.Executor) error {
 
 	_, err := exec.Exec(sql, args...)
 	if err != nil {
-		return errors.Wrap(err, "models: unable to delete from instrument_class")
+		return errors.Wrap(err, "models: unable to delete from instrument_source")
 	}
 
 	if err := o.doAfterDeleteHooks(exec); err != nil {
@@ -1040,61 +1040,61 @@ func (o *InstrumentClass) Delete(exec boil.Executor) error {
 }
 
 // DeleteAllP deletes all rows, and panics on error.
-func (q instrumentClassQuery) DeleteAllP() {
+func (q instrumentSourceQuery) DeleteAllP() {
 	if err := q.DeleteAll(); err != nil {
 		panic(boil.WrapErr(err))
 	}
 }
 
 // DeleteAll deletes all matching rows.
-func (q instrumentClassQuery) DeleteAll() error {
+func (q instrumentSourceQuery) DeleteAll() error {
 	if q.Query == nil {
-		return errors.New("models: no instrumentClassQuery provided for delete all")
+		return errors.New("models: no instrumentSourceQuery provided for delete all")
 	}
 
 	queries.SetDelete(q.Query)
 
 	_, err := q.Query.Exec()
 	if err != nil {
-		return errors.Wrap(err, "models: unable to delete all from instrument_class")
+		return errors.Wrap(err, "models: unable to delete all from instrument_source")
 	}
 
 	return nil
 }
 
 // DeleteAllGP deletes all rows in the slice, and panics on error.
-func (o InstrumentClassSlice) DeleteAllGP() {
+func (o InstrumentSourceSlice) DeleteAllGP() {
 	if err := o.DeleteAllG(); err != nil {
 		panic(boil.WrapErr(err))
 	}
 }
 
 // DeleteAllG deletes all rows in the slice.
-func (o InstrumentClassSlice) DeleteAllG() error {
+func (o InstrumentSourceSlice) DeleteAllG() error {
 	if o == nil {
-		return errors.New("models: no InstrumentClass slice provided for delete all")
+		return errors.New("models: no InstrumentSource slice provided for delete all")
 	}
 	return o.DeleteAll(boil.GetDB())
 }
 
 // DeleteAllP deletes all rows in the slice, using an executor, and panics on error.
-func (o InstrumentClassSlice) DeleteAllP(exec boil.Executor) {
+func (o InstrumentSourceSlice) DeleteAllP(exec boil.Executor) {
 	if err := o.DeleteAll(exec); err != nil {
 		panic(boil.WrapErr(err))
 	}
 }
 
 // DeleteAll deletes all rows in the slice, using an executor.
-func (o InstrumentClassSlice) DeleteAll(exec boil.Executor) error {
+func (o InstrumentSourceSlice) DeleteAll(exec boil.Executor) error {
 	if o == nil {
-		return errors.New("models: no InstrumentClass slice provided for delete all")
+		return errors.New("models: no InstrumentSource slice provided for delete all")
 	}
 
 	if len(o) == 0 {
 		return nil
 	}
 
-	if len(instrumentClassBeforeDeleteHooks) != 0 {
+	if len(instrumentSourceBeforeDeleteHooks) != 0 {
 		for _, obj := range o {
 			if err := obj.doBeforeDeleteHooks(exec); err != nil {
 				return err
@@ -1104,12 +1104,12 @@ func (o InstrumentClassSlice) DeleteAll(exec boil.Executor) error {
 
 	var args []interface{}
 	for _, obj := range o {
-		pkeyArgs := queries.ValuesFromMapping(reflect.Indirect(reflect.ValueOf(obj)), instrumentClassPrimaryKeyMapping)
+		pkeyArgs := queries.ValuesFromMapping(reflect.Indirect(reflect.ValueOf(obj)), instrumentSourcePrimaryKeyMapping)
 		args = append(args, pkeyArgs...)
 	}
 
-	sql := "DELETE FROM \"instruments\".\"instrument_class\" WHERE " +
-		strmangle.WhereClauseRepeated(string(dialect.LQ), string(dialect.RQ), 1, instrumentClassPrimaryKeyColumns, len(o))
+	sql := "DELETE FROM \"instruments\".\"instrument_source\" WHERE " +
+		strmangle.WhereClauseRepeated(string(dialect.LQ), string(dialect.RQ), 1, instrumentSourcePrimaryKeyColumns, len(o))
 
 	if boil.DebugMode {
 		fmt.Fprintln(boil.DebugWriter, sql)
@@ -1118,10 +1118,10 @@ func (o InstrumentClassSlice) DeleteAll(exec boil.Executor) error {
 
 	_, err := exec.Exec(sql, args...)
 	if err != nil {
-		return errors.Wrap(err, "models: unable to delete all from instrumentClass slice")
+		return errors.Wrap(err, "models: unable to delete all from instrumentSource slice")
 	}
 
-	if len(instrumentClassAfterDeleteHooks) != 0 {
+	if len(instrumentSourceAfterDeleteHooks) != 0 {
 		for _, obj := range o {
 			if err := obj.doAfterDeleteHooks(exec); err != nil {
 				return err
@@ -1133,23 +1133,23 @@ func (o InstrumentClassSlice) DeleteAll(exec boil.Executor) error {
 }
 
 // ReloadGP refetches the object from the database and panics on error.
-func (o *InstrumentClass) ReloadGP() {
+func (o *InstrumentSource) ReloadGP() {
 	if err := o.ReloadG(); err != nil {
 		panic(boil.WrapErr(err))
 	}
 }
 
 // ReloadP refetches the object from the database with an executor. Panics on error.
-func (o *InstrumentClass) ReloadP(exec boil.Executor) {
+func (o *InstrumentSource) ReloadP(exec boil.Executor) {
 	if err := o.Reload(exec); err != nil {
 		panic(boil.WrapErr(err))
 	}
 }
 
 // ReloadG refetches the object from the database using the primary keys.
-func (o *InstrumentClass) ReloadG() error {
+func (o *InstrumentSource) ReloadG() error {
 	if o == nil {
-		return errors.New("models: no InstrumentClass provided for reload")
+		return errors.New("models: no InstrumentSource provided for reload")
 	}
 
 	return o.Reload(boil.GetDB())
@@ -1157,8 +1157,8 @@ func (o *InstrumentClass) ReloadG() error {
 
 // Reload refetches the object from the database
 // using the primary keys with an executor.
-func (o *InstrumentClass) Reload(exec boil.Executor) error {
-	ret, err := FindInstrumentClass(exec, o.ID)
+func (o *InstrumentSource) Reload(exec boil.Executor) error {
+	ret, err := FindInstrumentSource(exec, o.ID)
 	if err != nil {
 		return err
 	}
@@ -1170,7 +1170,7 @@ func (o *InstrumentClass) Reload(exec boil.Executor) error {
 // ReloadAllGP refetches every row with matching primary key column values
 // and overwrites the original object slice with the newly updated slice.
 // Panics on error.
-func (o *InstrumentClassSlice) ReloadAllGP() {
+func (o *InstrumentSourceSlice) ReloadAllGP() {
 	if err := o.ReloadAllG(); err != nil {
 		panic(boil.WrapErr(err))
 	}
@@ -1179,7 +1179,7 @@ func (o *InstrumentClassSlice) ReloadAllGP() {
 // ReloadAllP refetches every row with matching primary key column values
 // and overwrites the original object slice with the newly updated slice.
 // Panics on error.
-func (o *InstrumentClassSlice) ReloadAllP(exec boil.Executor) {
+func (o *InstrumentSourceSlice) ReloadAllP(exec boil.Executor) {
 	if err := o.ReloadAll(exec); err != nil {
 		panic(boil.WrapErr(err))
 	}
@@ -1187,9 +1187,9 @@ func (o *InstrumentClassSlice) ReloadAllP(exec boil.Executor) {
 
 // ReloadAllG refetches every row with matching primary key column values
 // and overwrites the original object slice with the newly updated slice.
-func (o *InstrumentClassSlice) ReloadAllG() error {
+func (o *InstrumentSourceSlice) ReloadAllG() error {
 	if o == nil {
-		return errors.New("models: empty InstrumentClassSlice provided for reload all")
+		return errors.New("models: empty InstrumentSourceSlice provided for reload all")
 	}
 
 	return o.ReloadAll(boil.GetDB())
@@ -1197,37 +1197,37 @@ func (o *InstrumentClassSlice) ReloadAllG() error {
 
 // ReloadAll refetches every row with matching primary key column values
 // and overwrites the original object slice with the newly updated slice.
-func (o *InstrumentClassSlice) ReloadAll(exec boil.Executor) error {
+func (o *InstrumentSourceSlice) ReloadAll(exec boil.Executor) error {
 	if o == nil || len(*o) == 0 {
 		return nil
 	}
 
-	instrumentClasses := InstrumentClassSlice{}
+	instrumentSources := InstrumentSourceSlice{}
 	var args []interface{}
 	for _, obj := range *o {
-		pkeyArgs := queries.ValuesFromMapping(reflect.Indirect(reflect.ValueOf(obj)), instrumentClassPrimaryKeyMapping)
+		pkeyArgs := queries.ValuesFromMapping(reflect.Indirect(reflect.ValueOf(obj)), instrumentSourcePrimaryKeyMapping)
 		args = append(args, pkeyArgs...)
 	}
 
-	sql := "SELECT \"instruments\".\"instrument_class\".* FROM \"instruments\".\"instrument_class\" WHERE " +
-		strmangle.WhereClauseRepeated(string(dialect.LQ), string(dialect.RQ), 1, instrumentClassPrimaryKeyColumns, len(*o))
+	sql := "SELECT \"instruments\".\"instrument_source\".* FROM \"instruments\".\"instrument_source\" WHERE " +
+		strmangle.WhereClauseRepeated(string(dialect.LQ), string(dialect.RQ), 1, instrumentSourcePrimaryKeyColumns, len(*o))
 
 	q := queries.Raw(exec, sql, args...)
 
-	err := q.Bind(&instrumentClasses)
+	err := q.Bind(&instrumentSources)
 	if err != nil {
-		return errors.Wrap(err, "models: unable to reload all in InstrumentClassSlice")
+		return errors.Wrap(err, "models: unable to reload all in InstrumentSourceSlice")
 	}
 
-	*o = instrumentClasses
+	*o = instrumentSources
 
 	return nil
 }
 
-// InstrumentClassExists checks if the InstrumentClass row exists.
-func InstrumentClassExists(exec boil.Executor, id int16) (bool, error) {
+// InstrumentSourceExists checks if the InstrumentSource row exists.
+func InstrumentSourceExists(exec boil.Executor, id int16) (bool, error) {
 	var exists bool
-	sql := "select exists(select 1 from \"instruments\".\"instrument_class\" where \"id\"=$1 limit 1)"
+	sql := "select exists(select 1 from \"instruments\".\"instrument_source\" where \"id\"=$1 limit 1)"
 
 	if boil.DebugMode {
 		fmt.Fprintln(boil.DebugWriter, sql)
@@ -1238,20 +1238,20 @@ func InstrumentClassExists(exec boil.Executor, id int16) (bool, error) {
 
 	err := row.Scan(&exists)
 	if err != nil {
-		return false, errors.Wrap(err, "models: unable to check if instrument_class exists")
+		return false, errors.Wrap(err, "models: unable to check if instrument_source exists")
 	}
 
 	return exists, nil
 }
 
-// InstrumentClassExistsG checks if the InstrumentClass row exists.
-func InstrumentClassExistsG(id int16) (bool, error) {
-	return InstrumentClassExists(boil.GetDB(), id)
+// InstrumentSourceExistsG checks if the InstrumentSource row exists.
+func InstrumentSourceExistsG(id int16) (bool, error) {
+	return InstrumentSourceExists(boil.GetDB(), id)
 }
 
-// InstrumentClassExistsGP checks if the InstrumentClass row exists. Panics on error.
-func InstrumentClassExistsGP(id int16) bool {
-	e, err := InstrumentClassExists(boil.GetDB(), id)
+// InstrumentSourceExistsGP checks if the InstrumentSource row exists. Panics on error.
+func InstrumentSourceExistsGP(id int16) bool {
+	e, err := InstrumentSourceExists(boil.GetDB(), id)
 	if err != nil {
 		panic(boil.WrapErr(err))
 	}
@@ -1259,9 +1259,9 @@ func InstrumentClassExistsGP(id int16) bool {
 	return e
 }
 
-// InstrumentClassExistsP checks if the InstrumentClass row exists. Panics on error.
-func InstrumentClassExistsP(exec boil.Executor, id int16) bool {
-	e, err := InstrumentClassExists(exec, id)
+// InstrumentSourceExistsP checks if the InstrumentSource row exists. Panics on error.
+func InstrumentSourceExistsP(exec boil.Executor, id int16) bool {
+	e, err := InstrumentSourceExists(exec, id)
 	if err != nil {
 		panic(boil.WrapErr(err))
 	}

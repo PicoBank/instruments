@@ -1,5 +1,7 @@
 package main
 
+//go:generate sqlboiler -c database/sqlboiler.toml postgres
+
 import (
 	"fmt"
 	"log"
